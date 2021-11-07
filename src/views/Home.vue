@@ -1,18 +1,34 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
+import { apiGetSpotList } from "@/api/api"; 
 
 export default {
-  name: 'Home',
   components: {
-    HelloWorld
-  }
+    // HelloWorld
+  },
+  mounted() {
+    this.callApiGetSpotList();
+  },
+  methods: {
+    callApiGetSpotList() {
+      let param = "$top=30";
+
+      apiGetSpotList(param)
+      .then(res=> {
+        console.error(res);
+      })
+      .catch(err=> {
+        // 發生錯誤
+        console.error(err)
+      })
+    }
+  },
 }
 </script>
