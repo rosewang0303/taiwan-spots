@@ -3,3 +3,10 @@
 @import 'base/variables.scss';
 @import 'base/global.scss';
 @import 'base/grid.scss';
+
+// reset
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
