@@ -3,8 +3,10 @@
         <div class="container">
             <div class="header__wrap">
                 <div class="header__space">&nbsp;</div>
-                <img class="header__logo--pc" src="@/assets/icon/logo_pc.svg"/>
-                <img class="header__logo--mb" src="@/assets/icon/logo_mb.svg"/>
+                <router-link :to="{name: 'Index'}">
+                    <img class="header__logo--pc" src="@/assets/icon/logo_pc.svg"/>
+                    <img class="header__logo--mb" src="@/assets/icon/logo_mb.svg"/>
+                </router-link>
                 <div class="header__menu-control header__menu-control--menu" @click="menuOpen = true">
                     <img src="@/assets/icon/menu.svg"/>
                 </div>
@@ -12,15 +14,23 @@
                 <div class="header__overlay" v-if="menuOpen"></div>
                 <div class="header__menu" :class="{'header__menu--open': menuOpen}">
                     <div class="header__menu-control--close">
-                        <img class="header__logo" src="@/assets/icon/logo_mb.svg"/>
+                        <router-link :to="{name: 'Index'}">
+                            <img class="header__logo" src="@/assets/icon/logo_mb.svg"/>
+                        </router-link>
                         <div class="header__menu-control" @click="menuOpen = false">
                             <img src="@/assets/icon/close.svg"/>
                         </div>
                     </div>
-                    <ul>
-                        <li>探索景點</li>
-                        <li>節慶活動</li>
-                        <li>品嚐美食</li>
+                    <ul @click="menuOpen = false">
+                        <router-link :to="{name: 'Spot'}">
+                            <li>探索景點</li>
+                        </router-link>
+                        <router-link :to="{name: 'Event'}">
+                            <li>節慶活動</li>
+                        </router-link>
+                        <router-link :to="{name: 'Food'}">
+                            <li>品嚐美食</li>
+                        </router-link>
                     </ul>
                 </div>
             </div>

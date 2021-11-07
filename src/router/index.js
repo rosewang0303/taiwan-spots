@@ -4,6 +4,9 @@ import VueRouter from 'vue-router'
 import Layout from '@/components/shared/Layout'
 // view
 import Index from '@/views/Index'
+import Spot from '@/views/Spot'
+import Event from '@/views/Event'
+import Food from '@/views/Food'
 
 Vue.use(VueRouter)
 
@@ -23,6 +26,24 @@ const routes = [
         path: 'index',
         name: 'Index',
         component: Index,
+      },
+      {
+        // 探索景點
+        path: 'spot',
+        name: 'Spot',
+        component: Spot,
+      },
+      {
+        // 節慶活動
+        path: 'event',
+        name: 'Event',
+        component: Event,
+      },
+      {
+        // 品嚐美食
+        path: 'food',
+        name: 'Food',
+        component: Food,
       },
     ]
   },
