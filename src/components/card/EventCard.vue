@@ -81,6 +81,12 @@ export default {
         letter-spacing: 0.03em;
         margin-bottom: 17px;
         height: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 60px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
     &__bottom-wrap {
         display: flex;
