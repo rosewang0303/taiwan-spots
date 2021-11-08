@@ -72,6 +72,7 @@ export default {
         line-height: 28px;
     }
     &__menu {
+        background-color: $white;
         overflow: hidden;
         border: 1px solid $gray;
         border-radius: 6px;

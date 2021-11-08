@@ -1,11 +1,23 @@
-button {
-
-}
 .btn {
-
-}
-.primary-btn {
-
+    width: 100%;
+    background-color: $primary;
+    color: $white;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 28px;
+    padding: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.5s all ease;
+    img {
+        margin-right: 10px;
+    }
+    &:hover {
+        background-color: $primary-dark;
+    }
 }
 // 螢光筆重點
 .mark {
