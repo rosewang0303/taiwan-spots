@@ -153,6 +153,7 @@ export default {
         &__menu {
             display: none;
             &--open {
+                animation: menuToggle 0.5s ease both;
                 padding-bottom: 32px;
                 border: 1px solid rgba(229, 229, 229, 1);
                 border-bottom-left-radius: 50px;
@@ -188,6 +189,16 @@ export default {
             height: 100%;
             background: rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(4px);
+        }
+    }
+    @keyframes menuToggle {
+        from {
+            opacity: 0;
+            transform: translateX(1000px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0px);
         }
     }
 }
