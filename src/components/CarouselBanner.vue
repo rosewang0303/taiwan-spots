@@ -4,7 +4,7 @@
             <div class="carousel-banner__arrow carousel-banner__arrow--left" :class="{'disabled': bannerIndex == 0}" @click="bannerPrevious()"></div>
             <div class="carousel-banner__arrow carousel-banner__arrow--right" :class="{'disabled': bannerIndex == bannerList.length-1}" @click="bannerNext()"></div>
         </div>
-        <div class="carousel-banner__banner-title">{{bannerList[bannerIndex].title}}</div>
+        <div class="carousel-banner__banner-title">{{bannerTitle}}</div>
         <div class="carousel-banner__banner-wrap">
             <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
                 <img class="carousel-banner__banner" :style="'width:'+ bannerWidth +'px;'" 
@@ -25,12 +25,15 @@ export default {
             bannerIndex: 0,
             bannerWidth: 0,
             translateWidth: 0,
+            bannerTitle: "",
             bannerList: [],
         }
     },
     mounted() {
         // 初始計算撐滿畫面的banner寬度
         this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
+
+        // 取得banner
         this.bannerList = [
             {
                 img: require('@/assets/img/banner_default.svg'),
@@ -44,7 +47,18 @@ export default {
                 img: require('@/assets/img/banner_default.svg'),
                 title: "新北市 | 不厭亭3",
             },
-        ]
+        ];
+        // 初始title
+        this.bannerTitle = this.bannerList[this.bannerIndex].title;
+    },
+    watch: {
+        bannerIndex: {
+            handler: function(val) {
+                // 輪播字跟著圖切換
+                this.bannerTitle = this.bannerList[val].title;
+            },
+            immediate: true,
+        }
     },
     methods: {
         // 前一個
