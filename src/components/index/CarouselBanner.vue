@@ -8,7 +8,7 @@
         <div class="carousel-banner__banner-wrap">
             <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
                 <img class="carousel-banner__banner" :style="'width:'+ bannerWidth +'px;'" 
-                    src="@/assets/img/banner_default.svg"
+                    :src="bannerList[index].img"
                     v-for="(item, index) in bannerList" :key="index"/>
             </div>
         </div>
@@ -29,22 +29,27 @@ export default {
             bannerList: [],
         }
     },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.resizeHandler);
+    },
     mounted() {
         // 初始計算撐滿畫面的banner寬度
         this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
+        // 監聽resize事件
+        window.addEventListener('resize', this.resizeHandler);
 
         // 取得banner
         this.bannerList = [
             {
-                img: require('@/assets/img/banner_default.svg'),
-                title: "新北市 | 不厭亭",
+                img: require('@/assets/img/banner_default_pc.png'),
+                title: "新北市 | 不厭亭1",
             },
             {
-                img: require('@/assets/img/banner_default.svg'),
+                img: require('@/assets/img/banner_default_pc.png'),
                 title: "新北市 | 不厭亭2",
             },
             {
-                img: require('@/assets/img/banner_default.svg'),
+                img: require('@/assets/img/banner_default_pc.png'),
                 title: "新北市 | 不厭亭3",
             },
         ];
@@ -55,7 +60,10 @@ export default {
         bannerIndex: {
             handler: function(val) {
                 // 輪播字跟著圖切換
-                this.bannerTitle = this.bannerList[val].title;
+                if(val) {
+                    this.bannerTitle = this.bannerList[val].title;
+                    this.translateWidth = -(this.bannerWidth * val);
+                }
             },
             immediate: true,
         }
@@ -65,15 +73,17 @@ export default {
         bannerPrevious() {
             if(this.bannerIndex != 0) {
                 this.bannerIndex--;
-                this.translateWidth += this.bannerWidth;
             }
         },
         // 後一個
         bannerNext() {
             if(this.bannerIndex != this.bannerList.length-1) {
                 this.bannerIndex++;
-                this.translateWidth -= this.bannerWidth;
             }
+        },
+        // 監聽resize
+        resizeHandler() {
+           this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
         }
     },
 }
@@ -104,7 +114,7 @@ export default {
     }
     &__banner {
         display: block;
-        // background-color: $primary-40;
+        background-color: $gray-500;
         // overflow: hidden;
 
         // position: absolute;
@@ -167,6 +177,28 @@ export default {
             width: 20px;
             height: 20px;
             background-color: $white;
+        }
+    }
+}
+@media screen and (max-width: 768px){
+    .carousel-banner {
+        &__banner-wrap {
+            height: 300px;
+        }
+        &__dots {
+            width: 8px;
+            height: 8px;
+            &--active {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 576px){
+    .carousel-banner {
+        &__banner-wrap {
+            height: 135px;
         }
     }
 }

@@ -26,4 +26,16 @@ export default {
     margin-bottom: 120px;
   }
 }
+@media screen and (max-width: 768px){
+  .layout {
+    &__view {
+      margin-top: 6px;
+      margin-bottom: 72px;
+    }
+  }
+}
+@media screen and (max-width: 576px){
+  .layout {
+  }
+}
 </style>

@@ -21,12 +21,9 @@ export default {
     props: {
         value: null, // 綁定的值:menuList的index
         menuList: {
-            type: Object,
-            default: () => { return {} },
+            type: Array,
+            default: () => { return [] },
         },
-    },
-    mounted: {
-
     },
     methods: {
         // 選擇處理

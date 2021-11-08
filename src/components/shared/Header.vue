@@ -78,7 +78,7 @@ export default {
         border-bottom: 2px solid $white;
         font-size: 18px;
         line-height: 26px;
-        color: $gray-900;
+        color: $gray-800;
         transition: 0.5s all ease;
         &:hover {
             color: $primary;

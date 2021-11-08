@@ -20,11 +20,6 @@ export default {
             default: false,
         },
     },
-    mounted: {
-
-    },
-    methods: {
-    },
     computed: {
         syncValue: {
             get() {
