@@ -3,7 +3,7 @@
         <!-- header -->
         <Header />
         <!-- view -->
-        <router-view />
+        <router-view class="layout__view"/>
         <!-- footer -->
         <Footer />
     </div>
@@ -21,6 +21,9 @@ export default {
 </script>
 <style lang="scss">
 .layout {
-
+  &__view {
+    margin-top: 60px;
+    margin-bottom: 120px;
+  }
 }
 </style>

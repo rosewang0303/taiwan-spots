@@ -6,8 +6,8 @@
                     <div class="header__wrap">
                         <div class="header__space">&nbsp;</div>
                         <router-link :to="{name: 'Index'}">
-                            <img class="header__logo--pc" src="@/assets/icon/logo_pc.svg"/>
-                            <img class="header__logo--mb" src="@/assets/icon/logo_mb.svg"/>
+                            <img class="header__logo--pc" src="@/assets/img/logo_pc.svg"/>
+                            <img class="header__logo--mb" src="@/assets/img/logo_mb.svg"/>
                         </router-link>
                         <div class="header__menu-control header__menu-control--menu" @click="menuOpen = true">
                             <img src="@/assets/icon/menu.svg"/>
@@ -17,7 +17,7 @@
                         <div class="header__menu" :class="{'header__menu--open': menuOpen}">
                             <div class="header__menu-control--close">
                                 <router-link :to="{name: 'Index'}">
-                                    <img class="header__logo" src="@/assets/icon/logo_mb.svg"/>
+                                    <img class="header__logo" src="@/assets/img/logo_mb.svg"/>
                                 </router-link>
                                 <div class="header__menu-control" @click="menuOpen = false">
                                     <img src="@/assets/icon/close.svg"/>
