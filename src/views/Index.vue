@@ -157,7 +157,6 @@ export default {
 }
 </script>
 <style lang="scss">
-// app css
 .index {
     &__title {
         margin: 0 auto;

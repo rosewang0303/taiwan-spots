@@ -63,7 +63,7 @@ export default {
         }
     }
     &__selected-title {
-        color: $primary;
+        color: $primary-500;
         font-weight: 500;
         font-size: 16px;
         line-height: 28px;

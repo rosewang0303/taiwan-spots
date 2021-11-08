@@ -121,7 +121,7 @@ export default {
             width: 50px;
             height: 50px;
             border-radius: 12px;
-            background-color: $primary-light;
+            background-color: $primary-300;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -157,7 +157,7 @@ export default {
                 animation: menuToggle 0.5s ease both;
                 padding-bottom: 32px;
                 border: 1px solid rgba(229, 229, 229, 1);
-                border-bottom-left-radius: 50px;
+                border-bottom-left-radius: 30px;
                 width: 276px;
                 display: block;
                 position: fixed;

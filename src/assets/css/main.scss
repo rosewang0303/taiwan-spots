@@ -30,6 +30,13 @@ ul {
 }
 a {
   text-decoration: none;
+  color: $black;
+  &:hover {
+    color: $black;
+  }
+  &:visited {
+    color: $black;
+  }
 }
 input, button {
   border:none;

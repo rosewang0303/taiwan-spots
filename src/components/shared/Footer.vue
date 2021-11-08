@@ -13,7 +13,7 @@ export default {
 footer {
     padding: 20px 0;
     text-align: center;
-    background-color: $primary-dark;
+    background-color: $primary-800;
     color: $white;
     font-size: 14px;
     line-height: 19px;
