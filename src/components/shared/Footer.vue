@@ -9,7 +9,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 footer {
     padding: 20px 0;
     text-align: center;

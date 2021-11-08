@@ -19,7 +19,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .layout {
   &__view {
     margin-top: 60px;

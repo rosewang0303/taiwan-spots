@@ -78,7 +78,7 @@ export default {
     },
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .carousel-banner {
     &__banner-wrap {
         width: 100%;
@@ -161,7 +161,7 @@ export default {
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background-color: $gray-100;
+        background-color: $gray-200;
         margin-left: 14px;
         &--active {
             width: 20px;

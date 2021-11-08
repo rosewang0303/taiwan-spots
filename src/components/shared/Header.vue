@@ -50,7 +50,7 @@ export default {
     },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
     border-bottom: solid 1px $gray;
     &__wrap {
@@ -79,6 +79,7 @@ export default {
         font-size: 18px;
         line-height: 26px;
         color: $gray-900;
+        transition: 0.5s all ease;
         &:hover {
             color: $primary;
             border-bottom: 2px solid $yellow;
