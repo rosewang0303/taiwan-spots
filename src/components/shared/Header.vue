@@ -161,7 +161,7 @@ export default {
                 width: 276px;
                 display: block;
                 position: fixed;
-                z-index: 2;
+                z-index: $zindex-header-menu;
                 right: 0;
                 top: 0;
                 background-color: $white;
@@ -183,7 +183,7 @@ export default {
         }
         &__overlay {
             position: fixed;
-            z-index: 1;
+            z-index: $zindex-header-overlay;
             top: 0;
             left: 0;
             width: 100%;

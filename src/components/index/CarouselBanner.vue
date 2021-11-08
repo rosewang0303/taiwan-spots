@@ -100,7 +100,7 @@ export default {
         font-size: 28px;
         line-height: 41px;
         color: $white;
-        z-index: 1;
+        z-index: $zindex-carousel-title;
     }
     &__banner {
         display: block;
@@ -120,7 +120,7 @@ export default {
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-        z-index: 1;
+        z-index: $zindex-carousel-arrow;
         width: 100%;
         padding: 0 30px;
     }
@@ -129,23 +129,23 @@ export default {
         height: 40px;
         cursor: pointer;
         &--left {
-            background-image: url('../assets/icon/carousel_arrow_left.svg');
+            background-image: url('../../assets/icon/carousel_arrow_left.svg');
             &:hover {
-                background-image: url('../assets/icon/carousel_arrow_left_hover.svg');
+                background-image: url('../../assets/icon/carousel_arrow_left_hover.svg');
             }
             &.disabled {
                 cursor: not-allowed;
-                background-image: url('../assets/icon/carousel_arrow_left_disabled.svg');
+                background-image: url('../../assets/icon/carousel_arrow_left_disabled.svg');
             }
         }
         &--right {
-            background-image: url('../assets/icon/carousel_arrow_right.svg');
+            background-image: url('../../assets/icon/carousel_arrow_right.svg');
             &:hover {
-                background-image: url('../assets/icon/carousel_arrow_right_hover.svg');
+                background-image: url('../../assets/icon/carousel_arrow_right_hover.svg');
             }
             &.disabled {
                 cursor: not-allowed;
-                background-image: url('../assets/icon/carousel_arrow_right_disabled.svg');
+                background-image: url('../../assets/icon/carousel_arrow_right_disabled.svg');
             }
         }
     }
@@ -161,7 +161,7 @@ export default {
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background-color: $gray-200;
+        background-color: $gray-300;
         margin-left: 14px;
         &--active {
             width: 20px;

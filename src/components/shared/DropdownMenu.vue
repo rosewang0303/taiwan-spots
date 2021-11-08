@@ -76,7 +76,7 @@ export default {
         border: 1px solid $gray;
         border-radius: 6px;
         position: absolute;
-        z-index: 1;
+        z-index: $zindex-dropdown;
         top: 57px;
         left: 0;
         width: 100%;

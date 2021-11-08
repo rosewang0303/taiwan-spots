@@ -10,8 +10,20 @@ $primary-40: rgba(127, 151, 123, 0.4);
 
 $gray: #E5E5E5;
 $gray-100: #E6E6E6;
-$gray-200: #C4C4C4;
+$gray-200: #F9F9F9;
+$gray-300: #C4C4C4;
 $gray-500: #9E9E9E;
+$gray-600: #9E9E9E;
 $gray-900: #646464;
 
 $yellow: #E0DA48;
+
+// z-index
+// header
+$zindex-header-menu: 2;
+$zindex-header-overlay: 1;
+// carousel
+$zindex-carousel-title: 1;
+$zindex-carousel-arrow: 1;
+// dropdown
+$zindex-dropdown: 2;
