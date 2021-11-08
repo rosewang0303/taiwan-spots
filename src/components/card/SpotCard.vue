@@ -78,4 +78,19 @@ export default {
         }
     }
 }
+@media screen and (max-width: 768px){
+    .spot-card {
+        &__img-wrap {
+            height: 160px;
+        }
+        &__info-wrap {
+            margin-top: 6px;
+        }
+        &__title {
+            font-size: 18px;
+            line-height: 26px;
+            margin-bottom: 4px;
+        }
+    }
+}
 </style>

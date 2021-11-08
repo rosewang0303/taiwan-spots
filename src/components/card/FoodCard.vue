@@ -1,12 +1,12 @@
 <template>
-    <div class="spot-card col-lg-3 col-md-6 col-8">
-        <div class="spot-card__wrap">
-            <div class="spot-card__img-wrap">
+    <div class="food-card col-lg-3 col-md-6 col-8">
+        <div class="food-card__wrap">
+            <div class="food-card__img-wrap">
                 <img src="@/assets/img/spot_default_pc.png"/>
             </div>
-            <div class="spot-card__info-wrap">
-                <div class="spot-card__title">高美濕地(高物園濕地(美野生動物園濕地(高美野生</div>
-                <div class="spot-card__city">
+            <div class="food-card__info-wrap">
+                <div class="food-card__title">高美濕地(高物園濕地(美野生動物園濕地(高美野生</div>
+                <div class="food-card__city">
                     <img src="@/assets/icon/landmark_16_gray.svg"/>
                     南投縣
                 </div>
@@ -32,7 +32,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.spot-card {
+.food-card {
     width: 100%;
     &__wrap {
         width: 100%;
@@ -75,6 +75,21 @@ export default {
         align-items: center;
         img {
             margin-right: 3px;
+        }
+    }
+}
+@media screen and (max-width: 768px){
+    .food-card {
+        &__img-wrap {
+            height: 160px;
+        }
+        &__info-wrap {
+            margin-top: 6px;
+        }
+        &__title {
+            font-size: 18px;
+            line-height: 26px;
+            margin-bottom: 4px;
         }
     }
 }

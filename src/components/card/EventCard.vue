@@ -107,4 +107,51 @@ export default {
         color: $primary;
     }
 }
+@media screen and (max-width: 768px){
+    .event-card {
+    }
+}
+@media screen and (max-width: 576px){
+    .event-card {
+        &__wrap {
+            background-color: unset;
+            border: none;
+            border-radius: unset;
+        }
+        &__img-wrap {
+            width: 90px;
+            height: 62px;
+            border-radius: 10px;
+            border: 1px solid $gray;
+        }
+        &__info-wrap {
+            padding: 0 0 0 16px;
+            width: calc(100% - 90px);
+        }
+        &__date {
+            font-size: 12px;
+            line-height: 17px;
+            margin-bottom: 3px;
+        }
+        &__title {
+            font-size: 15px;
+            line-height: 22px;
+            margin-bottom: 1px;
+            height: unset;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        &__city {
+            font-size: 11px;
+            line-height: 16px;
+            img {
+                display: none;
+            }
+        }
+        &__more {
+            display: none;
+        }
+    }
+}
 </style>

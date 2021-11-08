@@ -281,6 +281,10 @@ export default {
         &__block {
             padding: 0 0 0 3px;
         }
+        &__block-title {
+            font-size: 24px;
+            line-height: 35px;
+        }
         &__block-data-list { 
             &--nowrap {
                 .row {
@@ -293,6 +297,9 @@ export default {
 }
 @media screen and (max-width: 576px){
     .index {
+        &__event-card {
+            margin-bottom: 16px;
+        }
     }
 }
 </style>
