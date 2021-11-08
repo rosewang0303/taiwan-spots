@@ -81,6 +81,8 @@ export default {
         left: 0;
         width: 100%;
         display: none;
+        max-height: 350px;
+        overflow: scroll;
         &--open {
             display: block;
         }
