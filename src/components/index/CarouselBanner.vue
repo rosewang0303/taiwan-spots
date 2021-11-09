@@ -8,7 +8,7 @@
         <div class="carousel-banner__banner-wrap">
             <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
                 <img class="carousel-banner__banner" :style="'width:'+ bannerWidth +'px;'" 
-                    :src="bannerList[index].img"
+                    :src="bannerList[index].Picture.PictureUrl1"
                     v-for="(item, index) in bannerList" :key="index"/>
             </div>
         </div>
@@ -19,6 +19,8 @@
     </div>
 </template>
 <script>
+import { apiGetSpotList } from "@/api/api"; 
+
 export default {
     data () {
         return {
@@ -37,31 +39,17 @@ export default {
         this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
         // 監聽resize事件
         window.addEventListener('resize', this.resizeHandler);
-
-        // 取得banner
-        this.bannerList = [
-            {
-                img: require('@/assets/img/banner_default_pc.png'),
-                title: "新北市 | 不厭亭1",
-            },
-            {
-                img: require('@/assets/img/banner_default_pc.png'),
-                title: "新北市 | 不厭亭2",
-            },
-            {
-                img: require('@/assets/img/banner_default_pc.png'),
-                title: "新北市 | 不厭亭3",
-            },
-        ];
-        // 初始title
-        this.bannerTitle = this.bannerList[this.bannerIndex].title;
+        
+        // 取得banner:景點資料5筆
+        this.callApiGetSpotList();
     },
     watch: {
         bannerIndex: {
             handler: function(val) {
                 // 輪播字跟著圖切換
                 if(val) {
-                    this.bannerTitle = this.bannerList[val].title;
+                    let city = this.bannerList[val].City?this.bannerList[val].City:this.bannerList[val].Address.substr(0, 3);
+                    this.bannerTitle = city + " | " + this.bannerList[val].Name;
                     this.translateWidth = -(this.bannerWidth * val);
                 }
             },
@@ -84,7 +72,21 @@ export default {
         // 監聽resize
         resizeHandler() {
            this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
-        }
+        },
+        callApiGetSpotList() {
+            let param = "$orderby=SrcUpdateTime%20desc&$top=5";
+
+            apiGetSpotList(param)
+            .then(res=> {
+                this.bannerList = res;
+                // 初始title
+                this.bannerTitle = this.bannerList[this.bannerIndex].title;
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
+        },
     },
 }
 </script>
