@@ -19,12 +19,7 @@
             </div>
             <div class="row event__block">
                 <div class="event__block-title col-12">熱門主題</div>
-                <div class="event__item-wrap col-lg-3 col-md-4 col-6" v-for="(item, index) in typeList" :key="index">
-                    <div class="event__img-wrap">
-                        <img :src="item.img"/>
-                    </div>
-                    <div class="event__item-title">{{item.title}}</div>
-                </div>
+                <ClassImgCard v-for="(item, index) in typeList" :key="index" type="event" :className="item.title" :img="item.img"/>
             </div>
         </div>
     </div>
@@ -35,6 +30,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb'
 import DropdownMenu from '@/components/shared/DropdownMenu'
 import DatePicker from '@/components/shared/DatePicker'
 import InputText from '@/components/shared/InputText'
+import ClassImgCard from '@/components/card/ClassImgCard'
 
 export default {
     data () {
@@ -99,6 +95,7 @@ export default {
         DropdownMenu,
         InputText,
         DatePicker,
+        ClassImgCard,
     },
     methods: {
     },
@@ -139,39 +136,6 @@ export default {
         letter-spacing: 0.03em;
         color: $gray-900;
     }
-    &__item-wrap {
-        cursor: pointer;
-        margin-top: 12px;
-        position: relative;
-        overflow: hidden;
-        &:hover {
-            .event__img-wrap img {
-                transition: 0.5s all ease;
-                transform: scale(1.5);
-            }
-        }
-    }
-    &__item-title {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: $white;
-        font-size: 24px;
-        line-height: 35px;
-        letter-spacing: 0.03em;
-        white-space: nowrap;
-    }
-    &__img-wrap {
-        width: 100%;
-        position:relative;
-        overflow: hidden;
-        border-radius: 24px;
-        img {
-            width: 100%;
-            transform: scale(1.1);
-        }
-    }
 }
 @media screen and (max-width: 768px){
     .event {
@@ -204,9 +168,6 @@ export default {
         &__block-title {
             font-size: 24px;
             line-height: 35px;
-        }
-        &__img-wrap {
-            border-radius: 16px;
         }
     }
 }
