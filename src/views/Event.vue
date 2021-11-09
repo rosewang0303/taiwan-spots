@@ -147,7 +147,7 @@ export default {
         &:hover {
             .event__img-wrap img {
                 transition: 0.5s all ease;
-                transform: scale(1.2);
+                transform: scale(1.5);
             }
         }
     }
@@ -160,6 +160,7 @@ export default {
         font-size: 24px;
         line-height: 35px;
         letter-spacing: 0.03em;
+        white-space: nowrap;
     }
     &__img-wrap {
         width: 100%;
@@ -168,6 +169,7 @@ export default {
         border-radius: 24px;
         img {
             width: 100%;
+            transform: scale(1.1);
         }
     }
 }
@@ -202,6 +204,9 @@ export default {
         &__block-title {
             font-size: 24px;
             line-height: 35px;
+        }
+        &__img-wrap {
+            border-radius: 16px;
         }
     }
 }
