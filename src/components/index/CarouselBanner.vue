@@ -4,14 +4,16 @@
             <div class="carousel-banner__arrow carousel-banner__arrow--left" :class="{'disabled': bannerIndex == 0}" @click="bannerPrevious()"></div>
             <div class="carousel-banner__arrow carousel-banner__arrow--right" :class="{'disabled': bannerIndex == bannerList.length-1}" @click="bannerNext()"></div>
         </div>
-        <div class="carousel-banner__banner-title">{{bannerTitle}}</div>
-        <div class="carousel-banner__banner-wrap">
-            <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
-                <img class="carousel-banner__banner" :style="'width:'+ bannerWidth +'px;'" 
-                    :src="bannerList[index].Picture.PictureUrl1"
-                    v-for="(item, index) in bannerList" :key="index"/>
+        <router-link :to="{name: 'Spot'}">
+            <div class="carousel-banner__banner-title">{{bannerTitle}}</div>
+            <div class="carousel-banner__banner-wrap">
+                <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
+                    <img class="carousel-banner__banner" :style="'width:'+ bannerWidth +'px;'" 
+                        :src="bannerList[index].Picture.PictureUrl1"
+                        v-for="(item, index) in bannerList" :key="index"/>
+                </div>
             </div>
-        </div>
+        </router-link>
         <div class="carousel-banner__dots-wrap">
             <div class="carousel-banner__dots" :class="{'carousel-banner__dots--active': bannerIndex == index}" 
                 v-for="(item, index) in bannerList" :key="index" @click="bannerIndex = index"></div>
