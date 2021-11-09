@@ -67,5 +67,8 @@ webTokenRequest.interceptors.response.use(
 /**
  * TDX api
  */
+
+// GET 取得縣市引用參數
+export const apiGetCityList = (data) => webTokenRequest.get(`/V3/Map/Basic/City?${data}`); 
 // GET 取得所有觀光景點資料
 export const apiGetSpotList = (data) => webTokenRequest.get(`/v2/Tourism/ScenicSpot?${data}`); 

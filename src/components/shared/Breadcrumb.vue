@@ -2,12 +2,12 @@
     <div class="breadcrumb">
         <div class="breadcrumb__wrap">
             <div class="breadcrumb__item">
-                <a href="index">首頁</a>
+                <router-link :to="{name: 'Index'}">首頁</router-link>
             </div>
             <div class="breadcrumb__item" :class="{'breadcrumb__item--active': index == list.length-1}"
                 v-for="(item, index) in list" :key="index">
                 <div class="breadcrumb__slash">/</div>
-                <a :href="item.url">{{item.title}}</a>
+                <router-link :to="{name: item.routeName, query: item.query}">{{item.title}}</router-link>
             </div>
         </div>
     </div>
