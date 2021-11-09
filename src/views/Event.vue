@@ -17,10 +17,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row event__block">
+            <div class="row event__block" v-if="!clickSearch">
                 <div class="event__block-title col-12">熱門主題</div>
                 <ClassImgCard v-for="(item, index) in typeList" :key="index" type="event" :className="item.title" :img="item.img"/>
             </div>
+            <SearchResultList v-else class="event__search-result"/>
         </div>
     </div>
 </template>
@@ -31,6 +32,7 @@ import DropdownMenu from '@/components/shared/DropdownMenu'
 import DatePicker from '@/components/shared/DatePicker'
 import InputText from '@/components/shared/InputText'
 import ClassImgCard from '@/components/card/ClassImgCard'
+import SearchResultList from '@/components/shared/SearchResultList'
 
 export default {
     data () {
@@ -88,6 +90,7 @@ export default {
                 city: null,
                 date: null,
             },
+            clickSearch: false,
         }
     },
     components: {
@@ -96,8 +99,13 @@ export default {
         InputText,
         DatePicker,
         ClassImgCard,
+        SearchResultList,
     },
     methods: {
+        // 搜尋
+        search() {
+            this.clickSearch = true;
+        },
     },
 }
 </script>
@@ -135,6 +143,9 @@ export default {
         line-height: 52px;
         letter-spacing: 0.03em;
         color: $gray-900;
+    }
+    &__search-result {
+        margin-top: 60px;
     }
 }
 @media screen and (max-width: 768px){

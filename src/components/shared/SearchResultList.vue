@@ -1,0 +1,97 @@
+<template>
+    <div class="search-result-list">
+        <div class="row">
+            <div class="col-12">
+                <div class="search-result-list__block-wrap">
+                    <span class="search-result-list__title">搜尋結果</span>
+                    <span>共有 <span class="search-result-list__count">{{list.length}}</span> 筆</span>
+                </div>
+            </div>
+            <div class="col-12" v-if="list.length == 0">
+                <div class="search-result-list__not-found-wrap">
+                    <div class="search-result-list__not-found">
+                        <img src="@/assets/icon/not_found.svg"/>
+                        <div>目前查無資料</div>
+                        <div>請重新搜尋</div>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <SearchCard class="search-result-list__item" v-for="(item, index) in list" :key="index" :item="item"/>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import SearchCard from '@/components/card/SearchCard'
+
+export default {
+    data () {
+        return {
+
+        }
+    },
+    props: {
+        list: {
+            type: Array,
+            default: () => { return [] }
+        }
+    },
+    components: {
+        SearchCard,
+    }
+}
+</script>
+<style lang="scss" scoped>
+.search-result-list {
+    width: 100%;
+    &__block-wrap {
+        display: flex;
+        align-items: flex-end;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: 0.03em;
+        color: $gray-800;
+    }
+    &__title {
+        font-weight: 300;
+        font-size: 36px;
+        line-height: 42px;
+        letter-spacing: 0.03em;
+        color: $gray-900;
+        margin-right: 7px;
+    }
+    &__count {
+        color: $brown;
+    }
+    &__not-found-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 80px;
+    }
+    &__not-found {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 34px;
+        color: $primary;
+        text-align: center;
+        img {
+            margin-bottom: 11px;
+        }
+    }
+    &__item {
+        margin-bottom: 36px;
+    }
+}
+@media screen and (max-width: 768px){
+    .search-result-list {
+
+    }
+}
+@media screen and (max-width: 576px){
+    .search-result-list {
+
+    }
+}
+</style>
