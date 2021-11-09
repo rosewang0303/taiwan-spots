@@ -35,8 +35,16 @@ export default {
 .spot-card {
     width: 100%;
     &__wrap {
+        cursor: pointer;
         width: 100%;
         overflow: hidden;
+        &:hover {
+            .spot-card__img-wrap img {
+                transition: 0.5s all ease;
+                transform: translate(-50%, -50%) scale(1.2);
+                transform-origin: 0,0;
+            }
+        }
     }
     &__img-wrap {
         width: 100%;

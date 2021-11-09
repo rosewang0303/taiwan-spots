@@ -109,6 +109,7 @@ export default {
 }
 @media screen and (max-width: 576px){
     .header {
+        border-bottom: none;
         &__wrap {
             padding: 8px 0  6px;
         }

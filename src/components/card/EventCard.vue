@@ -42,18 +42,26 @@ export default {
 .event-card {
     width: 100%;
     &__wrap {
+        cursor: pointer;
         background-color: $gray-200;
         border: 1px solid $gray;
         border-radius: 24px;
         width: 100%;
         display: flex;
         overflow: hidden;
+        &:hover {
+            .event-card__img-wrap img {
+                transition: 0.5s all ease;
+                transform: translate(-50%, -50%) scale(1.2);
+                transform-origin: 0,0;
+            }
+        }
     }
     &__img-wrap {
         width: 160px;
         height: 160px;
-        position:relative;
-        overflow:hidden;
+        position: relative;
+        overflow: hidden;
         img {
             position: absolute;
             top: 50%;
@@ -61,7 +69,7 @@ export default {
             display: block;
             min-width: 100%;
             min-height: 100%;
-            transform:translate(-50%,-50%);
+            transform: translate(-50%, -50%);
         }
     }
     &__info-wrap {
