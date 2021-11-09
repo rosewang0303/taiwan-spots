@@ -72,3 +72,7 @@ webTokenRequest.interceptors.response.use(
 export const apiGetCityList = (data) => webTokenRequest.get(`/V3/Map/Basic/City?${data}`); 
 // GET 取得所有觀光景點資料
 export const apiGetSpotList = (data) => webTokenRequest.get(`/v2/Tourism/ScenicSpot?${data}`); 
+// GET 取得所有觀光餐飲資料
+export const apiGetFoodList = (data) => webTokenRequest.get(`/v2/Tourism/Restaurant?${data}`);
+// GET 取得所有觀光活動資料
+export const apiGetEventList = (data) => webTokenRequest.get(`/v2/Tourism/Activity?${data}`); 

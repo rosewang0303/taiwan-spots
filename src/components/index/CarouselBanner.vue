@@ -4,8 +4,8 @@
             <div class="carousel-banner__arrow carousel-banner__arrow--left" :class="{'disabled': bannerIndex == 0}" @click="bannerPrevious()"></div>
             <div class="carousel-banner__arrow carousel-banner__arrow--right" :class="{'disabled': bannerIndex == bannerList.length-1}" @click="bannerNext()"></div>
         </div>
+        <div class="carousel-banner__banner-title">{{bannerTitle}}</div>
         <router-link :to="{name: 'Spot'}">
-            <div class="carousel-banner__banner-title">{{bannerTitle}}</div>
             <div class="carousel-banner__banner-wrap">
                 <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
                     <img class="carousel-banner__banner" :style="'width:'+ bannerWidth +'px;'" 
@@ -76,7 +76,7 @@ export default {
            this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
         },
         callApiGetSpotList() {
-            let param = "$orderby=SrcUpdateTime%20desc&$top=5";
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=5";
 
             apiGetSpotList(param)
             .then(res=> {

@@ -1,9 +1,10 @@
 // 共用函式
-
 /** 
- * 範例函式
- * @param   {string}    paramName 
+ * 時間format
+ * @param   {string}    time 
  */
-export function functionName(paramName) {
-    return paramName;
+export function formatDate(time) {
+    let date = new Date(time);
+    let format = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate()
+    return format;
 }

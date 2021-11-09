@@ -1,17 +1,19 @@
 <template>
     <div class="food-card col-lg-3 col-md-6 col-8">
-        <div class="food-card__wrap">
-            <div class="food-card__img-wrap">
-                <img src="@/assets/img/spot_default_pc.png"/>
-            </div>
-            <div class="food-card__info-wrap">
-                <div class="food-card__title">高美濕地(高物園濕地(美野生動物園濕地(高美野生</div>
-                <div class="food-card__city">
-                    <img src="@/assets/icon/landmark_16_gray.svg"/>
-                    南投縣
+        <router-link :to="{name: 'Food'}">
+            <div class="food-card__wrap">
+                <div class="food-card__img-wrap">
+                    <img :src="item.Picture.PictureUrl1"/>
+                </div>
+                <div class="food-card__info-wrap">
+                    <div class="food-card__title">{{item.Name}}</div>
+                    <div class="food-card__city">
+                        <img src="@/assets/icon/landmark_16_gray.svg"/>
+                        {{item.City?item.City:item.Address.substr(0, 3)}}
+                    </div>
                 </div>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 <script>
@@ -21,7 +23,10 @@ export default {
         }
     },
     props: {
-
+        item: {
+            type: Object,
+            default: () => { return {} }
+        }
     },
     watch: {
     },

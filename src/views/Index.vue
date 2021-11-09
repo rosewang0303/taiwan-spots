@@ -45,10 +45,7 @@
         </div>
         <div class="index__block-data-list">
             <div class="row">
-                <EventCard class="index__event-card"/>
-                <EventCard class="index__event-card"/>
-                <EventCard class="index__event-card"/>
-                <EventCard class="index__event-card"/>
+                <EventCard class="index__event-card" v-for="(item, index) in eventList" :key="index" :item="item"/>
             </div>
         </div>
         <!-- 熱門打卡景點 -->
@@ -66,10 +63,7 @@
         </div>
         <div class="index__block-data-list index__block-data-list--nowrap">
             <div class="row">
-                <SpotCard class="index__spot-card"/>
-                <SpotCard class="index__spot-card"/>
-                <SpotCard class="index__spot-card"/>
-                <SpotCard class="index__spot-card"/>
+                <SpotCard class="index__spot-card" v-for="(item, index) in spotList" :key="index" :item="item"/>
             </div>
         </div>
         <!-- 一再回訪美食 -->
@@ -87,10 +81,7 @@
         </div>
         <div class="index__block-data-list index__block-data-list--nowrap">
             <div class="row">
-                <FoodCard class="index__food-card"/>
-                <FoodCard class="index__food-card"/>
-                <FoodCard class="index__food-card"/>
-                <FoodCard class="index__food-card"/>
+                <FoodCard class="index__food-card" v-for="(item, index) in foodList" :key="index" :item="item"/>
             </div>
         </div>
     </div>
@@ -103,6 +94,8 @@ import InputText from '@/components/shared/InputText'
 import EventCard from '@/components/card/EventCard'
 import SpotCard from '@/components/card/SpotCard'
 import FoodCard from '@/components/card/FoodCard'
+
+import { apiGetSpotList, apiGetFoodList, apiGetEventList } from "@/api/api"; 
 
 export default {
     data () {
@@ -129,7 +122,18 @@ export default {
                 type: null,
                 search: null,
             },
+            spotList: [],
+            foodList: [],
+            eventList: [],
         }
+    },
+    mounted() {
+        // 取得景點資料4筆
+        this.callApiGetSpotList();
+        // 取得餐廳資料4筆
+        this.callApiGetFoodList();
+         // 取得活動資料4筆
+        this.callApiGetEventList();
     },
     watch: {
         'form.type': {
@@ -152,6 +156,42 @@ export default {
         // 搜尋
         search() {
             // TODO
+        },
+        callApiGetSpotList() {
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime desc&$top=4&";
+
+            apiGetSpotList(param)
+            .then(res=> {
+                this.spotList = res;
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
+        },
+        callApiGetFoodList() {
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=4";
+
+            apiGetFoodList(param)
+            .then(res=> {
+                this.foodList = res;
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
+        },
+        callApiGetEventList() {
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=4";
+
+            apiGetEventList(param)
+            .then(res=> {
+                this.eventList = res;
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
         },
     },
 }

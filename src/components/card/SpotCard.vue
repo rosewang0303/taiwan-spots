@@ -1,17 +1,19 @@
 <template>
     <div class="spot-card col-lg-3 col-md-6 col-8">
-        <div class="spot-card__wrap">
-            <div class="spot-card__img-wrap">
-                <img src="@/assets/img/spot_default_pc.png"/>
-            </div>
-            <div class="spot-card__info-wrap">
-                <div class="spot-card__title">高美濕地(高物園濕地(美野生動物園濕地(高美野生</div>
-                <div class="spot-card__city">
-                    <img src="@/assets/icon/landmark_16_gray.svg"/>
-                    南投縣
+        <router-link :to="{name: 'Spot'}">
+            <div class="spot-card__wrap">
+                <div class="spot-card__img-wrap">
+                    <img :src="item.Picture.PictureUrl1"/>
+                </div>
+                <div class="spot-card__info-wrap">
+                    <div class="spot-card__title">{{item.Name}}</div>
+                    <div class="spot-card__city">
+                        <img src="@/assets/icon/landmark_16_gray.svg"/>
+                        {{item.City?item.City:item.Address.substr(0, 3)}}
+                    </div>
                 </div>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 <script>
@@ -21,7 +23,10 @@ export default {
         }
     },
     props: {
-
+        item: {
+            type: Object,
+            default: () => { return {} }
+        }
     },
     watch: {
     },

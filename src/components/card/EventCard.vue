@@ -1,40 +1,50 @@
 <template>
     <div class="event-card col-lg-6 col-md-12 col-12">
-        <div class="event-card__wrap">
-            <div class="event-card__img-wrap">
-                <img src="@/assets/img/event_default_pc.png"/>
-            </div>
-            <div class="event-card__info-wrap">
-                <div class="event-card__date">2021/10/30 - 2021/11/13</div>
-                <div class="event-card__title">2021 日月潭花火音樂嘉年華</div>
-                <div class="event-card__bottom-wrap">
-                    <div class="event-card__city">
-                        <img src="@/assets/icon/landmark_16_gray.svg"/>
-                        南投縣
-                    </div>
-                    <div class="event-card__more">
-                        詳細介紹
-                        <img src="@/assets/icon/arrow_right_16_green.svg"/>
+        <router-link :to="{name: 'Event'}">
+            <div class="event-card__wrap">
+                <div class="event-card__img-wrap">
+                    <img :src="item.Picture.PictureUrl1"/>
+                </div>
+                <div class="event-card__info-wrap">
+                    <div class="event-card__date">{{ eventDate(item) }}</div>
+                    <div class="event-card__title">{{item.Name}}</div>
+                    <div class="event-card__bottom-wrap">
+                        <div class="event-card__city">
+                            <img src="@/assets/icon/landmark_16_gray.svg"/>
+                            {{item.City?item.City:item.Address.substr(0, 3)}}
+                        </div>
+                        <div class="event-card__more">
+                            詳細介紹
+                            <img src="@/assets/icon/arrow_right_16_green.svg"/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 <script>
+import { formatDate } from '@/function';
+
 export default {
     data () {
         return {
         }
     },
     props: {
-
+        item: {
+            type: Object,
+            default: () => { return {} }
+        }
     },
     watch: {
     },
     components: {
     },
     methods: {
+        eventDate(item) {
+            return formatDate(item.StartTime) + " - " + formatDate(item.EndTime)
+        }
     },
 }
 </script>
