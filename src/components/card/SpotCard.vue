@@ -1,6 +1,6 @@
 <template>
     <div class="spot-card col-lg-3 col-md-6 col-8">
-        <router-link :to="{name: 'Spot'}">
+        <router-link :to="{name: 'SpotDetail', params:{'id': item.ID} }">
             <div class="spot-card__wrap">
                 <div class="spot-card__img-wrap">
                     <img :src="item.Picture.PictureUrl1"/>
@@ -64,7 +64,8 @@ export default {
             display: block;
             min-width: 100%;
             min-height: 100%;
-            transform:translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            background-image: url('~@/assets/img/spot_default_pc.png');
         }
     }
     &__info-wrap {

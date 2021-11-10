@@ -161,7 +161,7 @@ export default {
             // TODO
         },
         callApiGetBannerList() {
-            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=5&$skip=1";
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime desc&$top=5&$skip=1";
 
             apiGetSpotList(param)
             .then(res=> {
@@ -173,7 +173,7 @@ export default {
             })
         },
         callApiGetSpotList() {
-            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime desc&$top=4&";
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=ID desc&$top=4&$skip=5";
 
             apiGetSpotList(param)
             .then(res=> {
@@ -185,7 +185,7 @@ export default {
             })
         },
         callApiGetFoodList() {
-            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=4";
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=ID desc&$top=4&$skip=10";
 
             apiGetFoodList(param)
             .then(res=> {
@@ -197,7 +197,7 @@ export default {
             })
         },
         callApiGetEventList() {
-            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=4";
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=StartTime desc&$top=4";
 
             apiGetEventList(param)
             .then(res=> {

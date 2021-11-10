@@ -6,12 +6,12 @@
                     <img :src="item.Picture.PictureUrl1"/>
                 </div>
                 <div class="event-card__info-wrap">
-                    <div class="event-card__date">{{ eventDate(item) }}</div>
+                    <div class="event-card__date">{{ formatDate(item.StartTime) + " - " + formatDate(item.EndTime) }}</div>
                     <div class="event-card__title">{{item.Name}}</div>
                     <div class="event-card__bottom-wrap">
                         <div class="event-card__city">
                             <img src="@/assets/icon/landmark_16_gray.svg"/>
-                            {{item.City?item.City:item.Address.substr(0, 3)}}
+                            {{ formatCity(item) }}
                         </div>
                         <div class="event-card__more">
                             詳細介紹
@@ -24,8 +24,6 @@
     </div>
 </template>
 <script>
-import { formatDate } from '@/function';
-
 export default {
     data () {
         return {
@@ -42,9 +40,6 @@ export default {
     components: {
     },
     methods: {
-        eventDate(item) {
-            return formatDate(item.StartTime) + " - " + formatDate(item.EndTime)
-        }
     },
 }
 </script>
@@ -80,6 +75,7 @@ export default {
             min-width: 100%;
             min-height: 100%;
             transform: translate(-50%, -50%);
+            background-image: url('~@/assets/img/event_default_pc.png');
         }
     }
     &__info-wrap {

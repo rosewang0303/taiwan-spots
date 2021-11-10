@@ -6,12 +6,14 @@
         </div>
         <div class="carousel-banner__banner-wrap">
             <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
-                <router-link :to="{name: routeName, query: routeQuery(item), params: routeParams(item)}" v-for="(item, index) in list" :key="index">
-                    <div class="carousel-banner__banner-img-wrap" :style="'width:'+ bannerWidth +'px;'">
-                        <div class="carousel-banner__banner-title">{{bannerTitle(item)}}</div>
-                        <img class="carousel-banner__img" :src="item.Picture.PictureUrl1"/>
-                    </div>
-                </router-link>
+                <div v-for="(item, index) in list" :key="index">
+                    <router-link :to="{name: routeName, query: routeQuery(item), params: routeParams(item)}">
+                        <div class="carousel-banner__banner-img-wrap" :style="'width:'+ bannerWidth +'px;'">
+                            <div v-if="titleShow" class="carousel-banner__banner-title">{{ formatCity(item) + " | " + item.Name }}</div>
+                            <img class="carousel-banner__img" :src="imageList[index]"/>
+                        </div>
+                    </router-link>
+                </div>
             </div>
         </div>
         <div class="carousel-banner__dots-wrap">
@@ -21,14 +23,13 @@
     </div>
 </template>
 <script>
-import { formatCity } from '@/function';
-
 export default {
     data () {
         return {
             bannerIndex: 0,
             bannerWidth: 0,
             translateWidth: 0,
+            imageList: [],
         }
     },
     props: {
@@ -40,13 +41,17 @@ export default {
             type: String,
             default: null
         },
+        titleShow: {
+            type: Boolean,
+            default: true,
+        },
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.resizeHandler);
     },
     mounted() {
         // 初始計算撐滿畫面的banner寬度
-        this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
+        this.bannerWidth = document.getElementsByClassName('carousel-banner__banner-wrap')[0].offsetWidth;
         // 監聽resize事件
         window.addEventListener('resize', this.resizeHandler);
     },
@@ -62,13 +67,28 @@ export default {
                 }
             },
         },
+        list: {
+            handler: function() {
+                if(this.routeName == "SpotDetail") {
+                    for(var i=0; i<this.list.length; i++) {
+                        this.imageList.push(this.list[i].Picture.PictureUrl1)
+                    }
+                }else {
+                    for(var j=0; j<this.list.length; j++) {
+                        this.imageList.push(this.list[j])
+                    }
+                }
+            },
+            immediate: true,
+        },
     },
     methods: {
         routeQuery(item) {
-            console.error(item)
             let query = null;
             if(this.routeName  == "SpotDetail") {
                 query = null
+            }else {
+                console.log(item)
             }
             return query;
         },
@@ -78,6 +98,8 @@ export default {
                 params = {
                     id: item.ID
                 }
+            }else {
+                console.log(item)
             }
             return params;
         },
@@ -97,9 +119,6 @@ export default {
         resizeHandler() {
            this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
         },
-        bannerTitle(item) {
-            return formatCity(item) + " | " + item.Name
-        }
     },
 }
 </script>

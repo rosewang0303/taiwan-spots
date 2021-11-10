@@ -5,6 +5,7 @@ import Layout from '@/components/shared/Layout'
 // view
 import Index from '@/views/Index'
 import Spot from '@/views/Spot'
+import SpotDetail from '@/views/SpotDetail'
 import Event from '@/views/Event'
 import Food from '@/views/Food'
 
@@ -34,6 +35,12 @@ const routes = [
         component: Spot,
       },
       {
+        // 景點詳細
+        path: 'spot/:id',
+        name: 'SpotDetail',
+        component: SpotDetail,
+      },
+      {
         // 節慶活動
         path: 'event',
         name: 'Event',
@@ -45,7 +52,12 @@ const routes = [
         name: 'Food',
         component: Food,
       },
-    ]
+      // 不符合router表預設轉址到首頁:放最後
+      { 
+        path: '/*', 
+        redirect: '/index'
+      }
+    ],
   },
 ]
 

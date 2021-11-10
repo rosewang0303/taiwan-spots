@@ -9,7 +9,7 @@
                     <div class="food-card__title">{{item.Name}}</div>
                     <div class="food-card__city">
                         <img src="@/assets/icon/landmark_16_gray.svg"/>
-                        {{item.City?item.City:item.Address.substr(0, 3)}}
+                        {{ formatCity(item) }}
                     </div>
                 </div>
             </div>
@@ -64,7 +64,8 @@ export default {
             display: block;
             min-width: 100%;
             min-height: 100%;
-            transform:translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            background-image: url('~@/assets/img/spot_default_pc.png');
         }
     }
     &__info-wrap {
