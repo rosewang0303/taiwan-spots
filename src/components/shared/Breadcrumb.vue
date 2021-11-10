@@ -7,7 +7,7 @@
             <div class="breadcrumb__item" :class="{'breadcrumb__item--active': index == list.length-1}"
                 v-for="(item, index) in list" :key="index">
                 <div class="breadcrumb__slash">/</div>
-                <router-link :to="{name: item.routeName, query: item.query}">{{item.title}}</router-link>
+                <router-link :to="{name: item.routeName, query: item.query, params: item.params}">{{item.title}}</router-link>
             </div>
         </div>
     </div>

@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="index__banner-wrap">
-                    <CarouselBanner/>
+                    <CarouselBanner :list="bannerList" routeName="SpotDetail"/>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
 </div>
 </template>
 <script>
-import CarouselBanner from '@/components/index/CarouselBanner'
+import CarouselBanner from '@/components/shared/CarouselBanner'
 import DropdownMenu from '@/components/shared/DropdownMenu'
 import InputText from '@/components/shared/InputText'
 import EventCard from '@/components/card/EventCard'
@@ -122,12 +122,15 @@ export default {
                 type: null,
                 search: null,
             },
+            bannerList: [],
             spotList: [],
             foodList: [],
             eventList: [],
         }
     },
     mounted() {
+        // 取得banner景點5筆
+        this.callApiGetBannerList();
         // 取得景點資料4筆
         this.callApiGetSpotList();
         // 取得餐廳資料4筆
@@ -156,6 +159,18 @@ export default {
         // 搜尋
         search() {
             // TODO
+        },
+        callApiGetBannerList() {
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=5&$skip=1";
+
+            apiGetSpotList(param)
+            .then(res=> {
+                this.bannerList = res;
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
         },
         callApiGetSpotList() {
             let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime desc&$top=4&";

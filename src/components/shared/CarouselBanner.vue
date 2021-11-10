@@ -2,26 +2,26 @@
     <div class="carousel-banner">
         <div class="carousel-banner__arrow-wrap">
             <div class="carousel-banner__arrow carousel-banner__arrow--left" :class="{'disabled': bannerIndex == 0}" @click="bannerPrevious()"></div>
-            <div class="carousel-banner__arrow carousel-banner__arrow--right" :class="{'disabled': bannerIndex == bannerList.length-1}" @click="bannerNext()"></div>
+            <div class="carousel-banner__arrow carousel-banner__arrow--right" :class="{'disabled': bannerIndex == list.length-1}" @click="bannerNext()"></div>
         </div>
-        <div class="carousel-banner__banner-title">{{bannerTitle}}</div>
-        <router-link :to="{name: 'Spot'}">
-            <div class="carousel-banner__banner-wrap">
-                <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
-                    <img class="carousel-banner__banner" :style="'width:'+ bannerWidth +'px;'" 
-                        :src="bannerList[index].Picture.PictureUrl1"
-                        v-for="(item, index) in bannerList" :key="index"/>
-                </div>
+        <div class="carousel-banner__banner-wrap">
+            <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
+                <router-link :to="{name: routeName, query: routeQuery(item), params: routeParams(item)}" v-for="(item, index) in list" :key="index">
+                    <div class="carousel-banner__banner-img-wrap" :style="'width:'+ bannerWidth +'px;'">
+                        <div class="carousel-banner__banner-title">{{bannerTitle(item)}}</div>
+                        <img class="carousel-banner__img" :src="item.Picture.PictureUrl1"/>
+                    </div>
+                </router-link>
             </div>
-        </router-link>
+        </div>
         <div class="carousel-banner__dots-wrap">
             <div class="carousel-banner__dots" :class="{'carousel-banner__dots--active': bannerIndex == index}" 
-                v-for="(item, index) in bannerList" :key="index" @click="bannerIndex = index"></div>
+                v-for="(item, index) in list" :key="index" @click="bannerIndex = index"></div>
         </div>
     </div>
 </template>
 <script>
-import { apiGetSpotList } from "@/api/api"; 
+import { formatCity } from '@/function';
 
 export default {
     data () {
@@ -29,9 +29,17 @@ export default {
             bannerIndex: 0,
             bannerWidth: 0,
             translateWidth: 0,
-            bannerTitle: "",
-            bannerList: [],
         }
+    },
+    props: {
+        list: {
+            type: Array,
+            default: () => { return []}
+        },
+        routeName: {
+            type: String,
+            default: null
+        },
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.resizeHandler);
@@ -41,24 +49,38 @@ export default {
         this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
         // 監聽resize事件
         window.addEventListener('resize', this.resizeHandler);
-        
-        // 取得banner:景點資料5筆
-        this.callApiGetSpotList();
     },
     watch: {
         bannerIndex: {
             handler: function(val) {
                 // 輪播字跟著圖切換
-                if(val) {
-                    let city = this.bannerList[val].City?this.bannerList[val].City:this.bannerList[val].Address.substr(0, 3);
-                    this.bannerTitle = city + " | " + this.bannerList[val].Name;
-                    this.translateWidth = -(this.bannerWidth * val);
+                let width = this.bannerWidth * val;
+                if(width == 0) {
+                    this.translateWidth = width;
+                }else {
+                    this.translateWidth = -width;
                 }
             },
-            immediate: true,
-        }
+        },
     },
     methods: {
+        routeQuery(item) {
+            console.error(item)
+            let query = null;
+            if(this.routeName  == "SpotDetail") {
+                query = null
+            }
+            return query;
+        },
+        routeParams(item) {
+            let params = null;
+            if(this.routeName  == "SpotDetail") {
+                params = {
+                    id: item.ID
+                }
+            }
+            return params;
+        },
         // 前一個
         bannerPrevious() {
             if(this.bannerIndex != 0) {
@@ -67,7 +89,7 @@ export default {
         },
         // 後一個
         bannerNext() {
-            if(this.bannerIndex != this.bannerList.length-1) {
+            if(this.bannerIndex != this.list.length-1) {
                 this.bannerIndex++;
             }
         },
@@ -75,20 +97,9 @@ export default {
         resizeHandler() {
            this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
         },
-        callApiGetSpotList() {
-            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime%20desc&$top=5";
-
-            apiGetSpotList(param)
-            .then(res=> {
-                this.bannerList = res;
-                // 初始title
-                this.bannerTitle = this.bannerList[this.bannerIndex].title;
-            })
-            .catch(err=> {
-                // 發生錯誤
-                console.error(err)
-            })
-        },
+        bannerTitle(item) {
+            return formatCity(item) + " | " + item.Name
+        }
     },
 }
 </script>
@@ -115,10 +126,18 @@ export default {
         line-height: 41px;
         color: $white;
         z-index: $zindex-carousel-title;
+        white-space: nowrap;
     }
-    &__banner {
+    &__banner-img-wrap {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+    }
+    &__img {
         display: block;
         background-color: $gray-500;
+        width: 100%;
+        transform: scale(1.1);
         // overflow: hidden;
 
         // position: absolute;
@@ -188,6 +207,11 @@ export default {
     .carousel-banner {
         &__banner-wrap {
             height: 300px;
+            border-radius: 16px;
+        }
+        &__dots-wrap {
+            right: 21px;
+            bottom: 11px;
         }
         &__dots {
             width: 8px;
@@ -197,12 +221,26 @@ export default {
                 height: 10px;
             }
         }
+        &__banner-img-wrap {
+            height: 300px;
+            border-radius: 16px;
+        }
+        &__banner-title {
+            font-size: 16px;
+            line-height: 23px;
+        }
     }
 }
 @media screen and (max-width: 576px){
     .carousel-banner {
+        &__arrow-wrap {
+            display: none;
+        }
         &__banner-wrap {
-            height: 135px;
+            height: 183px;
+        }
+        &__banner-img-wrap {
+            height: 183px;
         }
     }
 }
