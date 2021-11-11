@@ -37,6 +37,13 @@ export default {
             default: null,
         },
     },
+    beforeDestroy() {
+        window.removeEventListener('click', this.clickHandler);
+    },
+    mounted() {
+        // 監聽resize事件
+        window.addEventListener('click', this.clickHandler);
+    },
     watch: {
         type: {
             handler: function(val) {
@@ -59,6 +66,12 @@ export default {
         },
     },
     methods: {
+        // 點擊選單外:選單關閉
+        clickHandler(event) {
+            if(!this.$el.contains(event.target)){
+                this.menuOpen = false;
+            }
+        },
         // 選擇
         menuOpenClick() {
             if(this.menuList.length > 0) {
