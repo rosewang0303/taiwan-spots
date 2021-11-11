@@ -2,7 +2,7 @@
     <div class="nearby-info">
         <div class="nearby-info__nearby-title">周邊資訊：</div>
         <div class="nearby-info__nearby-item-wrap">
-            <router-link v-if="spotDetail.ID" class="nearby-info__nearby-item" :to="{name: 'SpotDetail', params:{'id': spotDetail.ID} }">
+            <router-link v-if="spotDetail.ID && (item.ID != spotDetail.ID)" class="nearby-info__nearby-item" :to="{name: 'SpotDetail', params:{'id': spotDetail.ID} }">
                 <img src="@/assets/icon/nearby_spot.svg"/>
                 <div>附近景點</div>
             </router-link>
@@ -10,7 +10,7 @@
                 <img src="@/assets/icon/nearby_spot.svg"/>
                 <div>附近景點:無</div>
             </div>
-            <router-link v-if="eventDetail.ID" class="nearby-info__nearby-item" :to="{name: 'EventDetail', params:{'id': eventDetail.ID} }">
+            <router-link v-if="eventDetail.ID && (item.ID != eventDetail.ID)" class="nearby-info__nearby-item" :to="{name: 'EventDetail', params:{'id': eventDetail.ID} }">
                 <img src="@/assets/icon/nearby_event.svg"/>
                 <div>附近活動</div>
             </router-link>
@@ -18,7 +18,7 @@
                 <img src="@/assets/icon/nearby_event.svg"/>
                 <div>附近活動:無</div>
             </div>
-            <router-link v-if="foodDetail.ID" class="nearby-info__nearby-item" :to="{name: 'FoodDetail', params:{'id': foodDetail.ID} }">
+            <router-link v-if="foodDetail.ID && (item.ID != foodDetail.ID)" class="nearby-info__nearby-item" :to="{name: 'FoodDetail', params:{'id': foodDetail.ID} }">
                 <img src="@/assets/icon/nearby_food.svg"/>
                 <div>附近美食</div>
             </router-link>

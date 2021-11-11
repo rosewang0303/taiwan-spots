@@ -81,7 +81,13 @@ export default {
             immediate: true,
         },
     },
+    beforeDestroy() {
+        window.removeEventListener('click', this.clickHandler);
+    },
     mounted() {
+        // 監聽click事件
+        window.addEventListener('click', this.clickHandler);
+
         // 今天
         let today = new Date();
 
@@ -138,13 +144,19 @@ export default {
         }
     },
     methods: {
+        // 點擊選單外:選單關閉
+        clickHandler(event) {
+            if(!this.$el.contains(event.target)){
+                this.menuOpen = false;
+            }
+        },
         // 選擇處理
         menuSelect(date) {
             this.menuOpen = false;
             // this.syncValue = index;
             this.selected = date;
             this.syncValue = date.year + this.dataSlash + date.month + this.dataSlash + date.date;
-        }
+        },
     },
     computed: {
         syncValue: {

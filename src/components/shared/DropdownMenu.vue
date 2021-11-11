@@ -41,7 +41,7 @@ export default {
         window.removeEventListener('click', this.clickHandler);
     },
     mounted() {
-        // 監聽resize事件
+        // 監聽click事件
         window.addEventListener('click', this.clickHandler);
     },
     watch: {
