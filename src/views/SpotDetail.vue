@@ -50,11 +50,11 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="spot-detail__map-wrap">
-                        <!-- <gmap-map class="spot-detail__map"
+                        <gmap-map class="spot-detail__map"
                             :zoom="14"    
                             :center="center">
                             <gmap-marker :position="center"></gmap-marker>
-                        </gmap-map> -->
+                        </gmap-map>
                     </div>
                     <div class="spot-detail__nearby-wrap">
                         <NearbyInfo :item="spotDetail"/>

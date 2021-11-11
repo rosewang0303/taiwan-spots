@@ -54,11 +54,11 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="event-detail__map-wrap">
-                        <!-- <gmap-map class="event-detail__map"
+                        <gmap-map class="event-detail__map"
                             :zoom="14"    
                             :center="center">
                             <gmap-marker :position="center"></gmap-marker>
-                        </gmap-map> -->
+                        </gmap-map>
                     </div>
                     <div class="event-detail__nearby-wrap">
                         <NearbyInfo :item="eventDetail"/>

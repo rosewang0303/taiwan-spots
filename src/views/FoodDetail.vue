@@ -40,11 +40,11 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="food-detail__map-wrap">
-                        <!-- <gmap-map class="food-detail__map"
+                        <gmap-map class="food-detail__map"
                             :zoom="14"    
                             :center="center">
                             <gmap-marker :position="center"></gmap-marker>
-                        </gmap-map> -->
+                        </gmap-map>
                     </div>
                     <div class="food-detail__nearby-wrap">
                         <NearbyInfo :item="foodDetail"/>
