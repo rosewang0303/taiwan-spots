@@ -14,8 +14,8 @@
             </div>
             <div class="col-md-6 col-12">
                 <div class="index__form">
-                    <DropdownMenu class="index__form-dropdown-menu" :menuList="menuList" v-model="form.type"/>
-                    <InputText class="index__form-input" v-model="param.search" placeholder="你想去哪裡？請輸入關鍵字"/>
+                    <DropdownMenu class="index__form-dropdown-menu" :menuList="menuList" v-model="param.type"/>
+                    <InputText class="index__form-input" v-model="param.keyword" placeholder="你想去哪裡？請輸入關鍵字"/>
                     <button class="btn" @click="search()">
                         <img src="@/assets/icon/search_30.svg"/>
                         <span>搜尋</span>
@@ -115,12 +115,9 @@ export default {
                 },
             ],
             // api
-            form: {
-                type: 0,
-            },
             param: {
                 type: null,
-                search: null,
+                keyword: null,
             },
             bannerList: [],
             spotList: [],
@@ -158,7 +155,15 @@ export default {
     methods: {
         // 搜尋
         search() {
-            // TODO
+            let type = this.param.type;
+            let keyword = this.param.keyword;
+            if(type == "event") {
+                this.$router.push({ name: 'Event', query: { keyword: keyword }});
+            }else if(type == "food"){
+                this.$router.push({ name: 'Food', query: { keyword: keyword }});
+            }else {
+                this.$router.push({ name: 'Spot', query: { keyword: keyword }});
+            }
         },
         callApiGetBannerList() {
             let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime desc&$top=5&$skip=1";
