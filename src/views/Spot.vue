@@ -112,29 +112,16 @@ export default {
             immediate: true,
             deep: true,
         },
-        param: {
-            handler: function(val) {
-                let city = this.param.city;
-                let keyword = this.param.keyword;
-                let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-                
-                if(keyword) {
-                    newQuery["keyword"] = keyword 
-                }
-                if(city) {
-                    newQuery["city"] = city 
-                }
-                if(val.keyword) {
-                    this.$router.replace({query: newQuery});
-                }
-            },
-            deep: true,
-        }
     },
     methods: {
         // 搜尋
         search() {
             this.callApiGetSpotCityList()
+            // 處理url
+            let keyword = this.param.keyword;
+            let newQuery = JSON.parse(JSON.stringify(this.$route.query));
+            newQuery["keyword"] = keyword 
+            this.$router.replace({query: newQuery});
         },
         // 餐廳塞選
         callApiGetSpotCityList() {

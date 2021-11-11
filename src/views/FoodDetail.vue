@@ -108,7 +108,7 @@ export default {
                         title: city,
                         routeName: "Food",
                         query: {
-                            'city': city
+                            'keyword': city
                         },
                     },
                     {

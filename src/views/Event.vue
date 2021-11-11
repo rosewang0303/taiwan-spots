@@ -104,24 +104,6 @@ export default {
             immediate: true,
             deep: true,
         },
-        param: {
-            handler: function(val) {
-                let city = this.param.city;
-                let keyword = this.param.keyword;
-                let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-                
-                if(keyword) {
-                    newQuery["keyword"] = keyword 
-                }
-                if(city) {
-                    newQuery["city"] = city 
-                }
-                if(val.keyword) {
-                    this.$router.replace({query: newQuery});
-                }
-            },
-            deep: true,
-        }
     },
     components: {
         Breadcrumb,
@@ -137,18 +119,32 @@ export default {
         // 搜尋
         search() {
             this.callApiGetEventCityList()
+            // 處理url
+            let keyword = this.param.keyword;
+            let newQuery = JSON.parse(JSON.stringify(this.$route.query));
+            newQuery["keyword"] = keyword 
+            this.$router.replace({query: newQuery});
         },
         // 餐廳塞選
         callApiGetEventCityList() {
             this.classBlockShow = false;
             let param = "";
             let city = "";
-            if(this.param.keyword) {
-                let keyword = this.param.keyword
-                param = `$filter=contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') and Picture/PictureUrl1 ne null`;
-            } 
+            let keyword = this.param.keyword
+            let date = this.param.date
+
+            if(this.param.keyword && this.param.date) {
+                param = `$filter=contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') or contains(Description, '${date}') or contains(Description,'${date}') and Picture/PictureUrl1 ne null`;
+            }else {
+                if(keyword) {
+                    param = `$filter=contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') and Picture/PictureUrl1 ne null`;
+                } 
+                if(date) {
+                    param = `$filter=contains(Description, '${date}') or contains(Description,'${date}') and Picture/PictureUrl1 ne null`;
+                } 
+            }
             if(this.param.city) {
-                 city = this.param.city;
+                city = this.param.city;
             }
             apiGetEventCityList(city, param)
             .then(res=> {

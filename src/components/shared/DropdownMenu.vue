@@ -125,7 +125,7 @@ export default {
             }
         },
         selectedTitle() {
-            return this.list[this.selectedIndex]?this.list[this.selectedIndex].title:"沒有選項"
+            return this.list[this.selectedIndex]?this.list[this.selectedIndex].title:"無"
         },
     },
 }

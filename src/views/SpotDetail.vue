@@ -118,7 +118,7 @@ export default {
                         title: city,
                         routeName: "Spot",
                         query: {
-                            'city': city
+                            'keyword': city
                         },
                     },
                     {

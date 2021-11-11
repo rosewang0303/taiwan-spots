@@ -122,7 +122,7 @@ export default {
                         title: city,
                         routeName: "Event",
                         query: {
-                            'city': city
+                            'keyword': city
                         },
                     },
                     {
