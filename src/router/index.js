@@ -87,6 +87,7 @@ const router = new VueRouter({
   routes
 })
 
+// 換頁面畫面置頂
 router.afterEach((to, from, next) => {
   console.log(to, from, next);
   window.scrollTo(0, 0);
