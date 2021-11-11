@@ -7,8 +7,8 @@
                 </div>
                 <div class="col-12">
                     <div class="spot__form">
-                        <DropdownMenu class="spot__form-dropdown-menu" type="city" v-model="param.city"/>
-                        <InputText class="spot__form-input" v-model="param.search" placeholder="你想去哪裡？請輸入關鍵字"/>
+                        <DropdownMenu class="spot__form-dropdown-menu" :defaultTitle="defaultCityTitle" type="city" v-model="param.city"/>
+                        <InputText class="spot__form-input" v-model="param.keyword" placeholder="你想去哪裡？請輸入關鍵字"/>
                         <button class="btn spot__form-btn" @click="search()">
                             <img src="@/assets/icon/search_30.svg"/>
                             <span>搜尋</span>
@@ -16,10 +16,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row spot__block">
+            <div class="row spot__block" v-if="classBlockShow">
                 <div class="spot__block-title col-12">熱門主題</div>
-                <ClassImgCard v-for="(item, index) in typeList" :key="index" type="spot" :className="item.title" :img="item.img"/>
+                <ClassImgCard v-for="(item, index) in typeList" :key="index" type="food" :className="item.title" :img="item.img"/>
             </div>
+            <SearchResultList v-else class="spot__search-result" :list="searchList" routeName="SpotDetail"/>
         </div>
     </div>
 </template>
@@ -29,6 +30,8 @@ import Breadcrumb from '@/components/shared/Breadcrumb'
 import DropdownMenu from '@/components/shared/DropdownMenu'
 import InputText from '@/components/shared/InputText'
 import ClassImgCard from '@/components/card/ClassImgCard'
+import SearchResultList from '@/components/shared/SearchResultList'
+import { apiGetSpotCityList } from "@/api/api";
 
 export default {
     data () {
@@ -71,7 +74,11 @@ export default {
             ],
             param: {
                 city: null,
+                keyword: null,
             },
+            defaultCityTitle: null,
+            searchList: [],
+            classBlockShow: true,
         }
     },
     components: {
@@ -79,8 +86,58 @@ export default {
         DropdownMenu,
         InputText,
         ClassImgCard,
+        SearchResultList,
+    },
+    watch: {
+        $route: {
+            handler: function(val) {
+                let checkSearch = 0;
+                // keyword 帶入
+                if(val.query.keyword) {
+                    this.param.keyword = val.query.keyword;
+                    checkSearch++;
+                }
+                // city 帶入
+                if(val.query.city) {
+                    this.defaultCityTitle = val.query.city
+                    checkSearch++;
+                }
+                // 搜尋
+                if(checkSearch > 0) {
+                    this.callApiGetSpotCityList()
+                }
+            },
+            immediate: true,
+            deep: true,
+        }
     },
     methods: {
+        // 搜尋
+        search() {
+            this.callApiGetSpotCityList()
+        },
+        // 餐廳塞選
+        callApiGetSpotCityList() {
+            this.classBlockShow = false;
+            let param = "";
+            let city = "";
+            if(this.param.keyword) {
+                let keyword = this.param.keyword
+                param = `$filter=contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') and Picture/PictureUrl1 ne null`;
+            } 
+            if(this.param.city) {
+                 city = this.param.city;
+            }
+            apiGetSpotCityList(city, param)
+            .then(res=> {
+                this.searchList = res;
+                console.error(res)
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
+        },
     },
 }
 </script>
@@ -115,6 +172,9 @@ export default {
         line-height: 52px;
         letter-spacing: 0.03em;
         color: $gray-900;
+    }
+    &__search-result {
+        margin-top: 60px;
     }
 }
 @media screen and (max-width: 768px){

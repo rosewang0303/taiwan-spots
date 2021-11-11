@@ -7,7 +7,9 @@
                     <span>共有 <span class="search-result-list__count">{{list.length}}</span> 筆</span>
                 </div>
             </div>
-            <div class="col-12" v-if="list.length == 0">
+        </div>
+        <div class="row" v-if="list.length == 0">
+            <div class="col-12">
                 <div class="search-result-list__not-found-wrap">
                     <div class="search-result-list__not-found">
                         <img src="@/assets/icon/not_found.svg"/>
@@ -16,9 +18,9 @@
                     </div>
                 </div>
             </div>
-            <div v-else>
-                <SearchCard class="search-result-list__item" v-for="(item, index) in list" :key="index" :item="item"/>
-            </div>
+        </div>
+        <div v-else class="row search-result-list__item-wrap">
+            <SearchCard class="search-result-list__item" v-for="(item, index) in list" :key="index" :item="item" :routeName="routeName"/>
         </div>
     </div>
 </template>
@@ -35,7 +37,11 @@ export default {
         list: {
             type: Array,
             default: () => { return [] }
-        }
+        },
+        routeName: {
+            type: String,
+            default: null,
+        },
     },
     components: {
         SearchCard,
@@ -79,6 +85,9 @@ export default {
         img {
             margin-bottom: 11px;
         }
+    }
+    &__item-wrap {
+        margin-top: 12px;
     }
     &__item {
         margin-bottom: 36px;

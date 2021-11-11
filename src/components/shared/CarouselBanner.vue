@@ -147,6 +147,10 @@ export default {
         height: 400px;
         overflow: hidden;
         border-radius: 24px;
+        background-image: url('~@/assets/img/banner_default_pc.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
     }
     &__banner-list {
         display: inline-flex;

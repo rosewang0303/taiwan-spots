@@ -135,15 +135,6 @@ export default {
          // 取得活動資料4筆
         this.callApiGetEventList();
     },
-    watch: {
-        'form.type': {
-            handler: function(val) {
-                this.param.type = this.menuList[val].value;
-            },
-            deep: true,
-            immediate: true,
-        }
-    },
     components: {
         CarouselBanner,
         DropdownMenu,

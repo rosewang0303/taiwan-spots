@@ -7,9 +7,9 @@
                 </div>
                 <div class="col-12">
                     <div class="event__form">
-                        <DropdownMenu class="event__form-dropdown-menu" type="city" v-model="param.city"/>
+                        <DropdownMenu class="event__form-dropdown-menu" :defaultTitle="defaultCityTitle" type="city" v-model="param.city"/>
                         <DatePicker class="event__form-date-picker" v-model="param.date"/>
-                        <InputText class="event__form-input" v-model="param.search" placeholder="想找有趣的？請輸入關鍵字"/>
+                        <InputText class="event__form-input" v-model="param.keyword" placeholder="想找有趣的？請輸入關鍵字"/>
                         <button class="btn event__form-btn" @click="search()">
                             <img src="@/assets/icon/search_30.svg"/>
                             <span>搜尋</span>
@@ -17,11 +17,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row event__block" v-if="!clickSearch">
+            <div class="row event__block" v-if="classBlockShow">
                 <div class="event__block-title col-12">熱門主題</div>
-                <ClassImgCard v-for="(item, index) in typeList" :key="index" type="event" :className="item.title" :img="item.img"/>
+                <ClassImgCard v-for="(item, index) in typeList" :key="index" type="food" :className="item.title" :img="item.img"/>
             </div>
-            <SearchResultList v-else class="event__search-result"/>
+            <SearchResultList v-else class="event__search-result" :list="searchList" routeName="EventDetail"/>
         </div>
     </div>
 </template>
@@ -33,6 +33,7 @@ import DatePicker from '@/components/shared/DatePicker'
 import InputText from '@/components/shared/InputText'
 import ClassImgCard from '@/components/card/ClassImgCard'
 import SearchResultList from '@/components/shared/SearchResultList'
+import { apiGetEventCityList } from "@/api/api"; 
 
 export default {
     data () {
@@ -72,8 +73,34 @@ export default {
             param: {
                 city: null,
                 date: null,
+                keyword: null,
             },
-            clickSearch: false,
+            defaultCityTitle: null,
+            searchList: [],
+            classBlockShow: true,
+        }
+    },
+    watch: {
+        $route: {
+            handler: function(val) {
+                    let checkSearch = 0;
+                    // keyword 帶入
+                    if(val.query.keyword) {
+                        this.param.keyword = val.query.keyword;
+                        checkSearch++;
+                    }
+                    // city 帶入
+                    if(val.query.city) {
+                        this.defaultCityTitle = val.query.city
+                        checkSearch++;
+                    }
+                    // 搜尋
+                    if(checkSearch > 0) {
+                        this.callApiGetEventCityList()
+                    }
+            },
+            immediate: true,
+            deep: true,
         }
     },
     components: {
@@ -89,7 +116,29 @@ export default {
     methods: {
         // 搜尋
         search() {
-            this.clickSearch = true;
+            this.callApiGetEventCityList()
+        },
+        // 餐廳塞選
+        callApiGetEventCityList() {
+            this.classBlockShow = false;
+            let param = "";
+            let city = "";
+            if(this.param.keyword) {
+                let keyword = this.param.keyword
+                param = `$filter=contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') and Picture/PictureUrl1 ne null`;
+            } 
+            if(this.param.city) {
+                 city = this.param.city;
+            }
+            apiGetEventCityList(city, param)
+            .then(res=> {
+                this.searchList = res;
+                console.error(res)
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
         },
     },
 }

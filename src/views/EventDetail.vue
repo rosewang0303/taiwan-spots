@@ -90,7 +90,7 @@ import { apiGetEventList } from "@/api/api";
 export default {
     data () {
         return {
-            eventDetail: null,
+            eventDetail: {},
             breadcrumbList: [],
             imageList: [],
             // google map
@@ -112,7 +112,6 @@ export default {
                 this.eventDetail = res[0];
                 let city = this.formatCity(this.eventDetail);
                 let name = this.eventDetail.Name;
-                let id = this.eventDetail.ID;
                 // 麵包屑
                 this.breadcrumbList = [
                     {
@@ -128,10 +127,6 @@ export default {
                     },
                     {
                         title: name,
-                        routeName: "eventDetail",
-                        params: {
-                            'id': id
-                        },
                     },
                 ];
                 // 圖片處理

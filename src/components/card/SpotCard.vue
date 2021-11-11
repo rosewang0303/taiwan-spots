@@ -66,6 +66,9 @@ export default {
             min-height: 100%;
             transform: translate(-50%,-50%);
             background-image: url('~@/assets/img/spot_default_pc.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
         }
     }
     &__info-wrap {

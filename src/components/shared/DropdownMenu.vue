@@ -1,12 +1,12 @@
 <template>
     <div class="dropdown-menu">
         <div class="dropdown-menu__selected" @click="menuOpenClick()">
-            <div class="dropdown-menu__selected-title">{{menuList[selectedIndex]?menuList[selectedIndex].title:"沒有選項"}}</div>
+            <div class="dropdown-menu__selected-title">{{selectedTitle}}</div>
             <img :class="{'open': menuOpen}" src="@/assets/icon/dropdown_arrow.svg"/>
         </div>
         <div class="dropdown-menu__menu" :class="{'dropdown-menu__menu--open': menuOpen}">
             <ul>
-                <li v-for="(item, index) in menuList" :key="index" @click="menuSelect(index)">{{item.title}}</li>
+                <li v-for="(item, index) in list" :key="index" @click="menuSelect(index)">{{item.title}}</li>
             </ul>
         </div>
     </div>
@@ -19,6 +19,7 @@ export default {
         return {
             menuOpen: false,
             selectedIndex: 0,
+            list: [],
         }
     },
     props: {
@@ -31,6 +32,10 @@ export default {
             type: String,
             default: null,
         },
+        defaultTitle: {
+            type: String,
+            default: null,
+        },
     },
     watch: {
         type: {
@@ -40,6 +45,14 @@ export default {
                         // 取得城市選單
                         this.callApiGetCityList();
                     }
+                }
+            },
+            immediate: true,
+        },
+        menuList: {
+            handler: function(val) {
+                if(val) {
+                    this.list = val;
                 }
             },
             immediate: true,
@@ -62,17 +75,26 @@ export default {
         callApiGetCityList() {
             apiGetCityList()
             .then(res=> {
-                this.menuList = [];
-                this.menuList.push({
+                this.list.push({
                     title: "全部縣市",
                     value: "",
                 });
                 res.map( item => {
-                    this.menuList.push({
+                    this.list.push({
                         title: item.CityName,
                         value: item.City,
                     });
                 });
+                if(this.defaultTitle && this.list) {
+                    for(var i=0; i<this.list.length; i++) {
+                        let item = this.list[i];
+                        if(this.defaultTitle == item.title) {
+                            this.selectedIndex = i;
+                            this.syncValue = this.list[this.selectedIndex].value;
+                            return
+                        }
+                    }
+                }
             })
             .catch(err=> {
                 // 發生錯誤
@@ -88,6 +110,9 @@ export default {
             set(val) {
                 this.$emit('input', val)
             }
+        },
+        selectedTitle() {
+            return this.list[this.selectedIndex]?this.list[this.selectedIndex].title:"沒有選項"
         },
     },
 }

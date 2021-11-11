@@ -22,11 +22,11 @@
                     <div class="food-detail__info-wrap">
                         <div class="food-detail__info">
                             <div class="food-detail__info-title">營業時間：</div>
-                            <div class="food-detail__info-value">{{foodDetail.OpenTime}}</div>
+                            <div class="food-detail__info-value">{{foodDetail.OpenTime?foodDetail.OpenTime:'無'}}</div>
                         </div>
                         <div class="food-detail__info">
                             <div class="food-detail__info-title">聯絡電話：</div>
-                            <div class="food-detail__info-value">{{foodDetail.Phone}}</div>
+                            <div class="food-detail__info-value">{{foodDetail.Phone?foodDetail.Phone:'無'}}</div>
                         </div>
                         <div class="food-detail__info" v-if="foodDetail.Address">
                             <div class="food-detail__info-title">餐廳地址：</div>
@@ -76,7 +76,7 @@ import { apiGetFoodList } from "@/api/api";
 export default {
     data () {
         return {
-            foodDetail: null,
+            foodDetail: {},
             breadcrumbList: [],
             imageList: [],
             // google map
@@ -98,7 +98,6 @@ export default {
                 this.foodDetail = res[0];
                 let city = this.formatCity(this.foodDetail);
                 let name = this.foodDetail.Name;
-                let id = this.foodDetail.ID;
                 // 麵包屑
                 this.breadcrumbList = [
                     {
@@ -114,10 +113,6 @@ export default {
                     },
                     {
                         title: name,
-                        routeName: "foodDetail",
-                        params: {
-                            'id': id
-                        },
                     },
                 ];
                 // 圖片處理

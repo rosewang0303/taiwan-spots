@@ -1,17 +1,19 @@
 <template>
-    <div class="data-card col-lg-3 col-md-6 col-12">
-        <div class="data-card__wrap">
-            <div class="data-card__img-wrap">
-                <img src="@/assets/img/spot_default_pc.png"/>
-            </div>
-            <div class="data-card__info-wrap">
-                <div class="data-card__title">高美濕地(高物園濕地(美野生動物園濕地(高美野生</div>
-                <div class="data-card__city">
-                    <img src="@/assets/icon/landmark_16_gray.svg"/>
-                    南投縣
+    <div class="search-card col-lg-3 col-md-6 col-12">
+        <router-link :to="{name: routeName, params:{'id': item.ID} }">
+            <div class="search-card__wrap">
+                <div class="search-card__img-wrap">
+                    <img :src="item.Picture.PictureUrl1"/>
+                </div>
+                <div class="search-card__info-wrap">
+                    <div class="search-card__title">{{item.Name}}</div>
+                    <div class="search-card__city">
+                        <img src="@/assets/icon/landmark_16_gray.svg"/>
+                        {{ formatCity(item) }}
+                    </div>
                 </div>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 <script>
@@ -24,7 +26,11 @@ export default {
         item: {
             type: Object,
             default: () => { return {} }
-        }
+        },
+        routeName: {
+            type: String,
+            default: null,
+        },
     },
     watch: {
     },
@@ -35,14 +41,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.data-card {
+.search-card {
     width: 100%;
     &__wrap {
         cursor: pointer;
         width: 100%;
         overflow: hidden;
         &:hover {
-            .data-card__img-wrap img {
+            .search-card__img-wrap img {
                 transition: 0.5s all ease;
                 transform: translate(-50%, -50%) scale(1.2);
                 transform-origin: 0,0;
@@ -62,7 +68,11 @@ export default {
             display: block;
             min-width: 100%;
             min-height: 100%;
-            transform:translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            background-image: url('~@/assets/img/spot_default_pc.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
         }
     }
     &__info-wrap {
@@ -90,7 +100,7 @@ export default {
     }
 }
 @media screen and (max-width: 768px){
-    .data-card {
+    .search-card {
         &__img-wrap {
             height: 160px;
         }

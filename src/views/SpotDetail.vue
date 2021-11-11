@@ -86,7 +86,7 @@ import { apiGetSpotList } from "@/api/api";
 export default {
     data () {
         return {
-            spotDetail: null,
+            spotDetail: {},
             breadcrumbList: [],
             imageList: [],
             // google map
@@ -108,7 +108,6 @@ export default {
                 this.spotDetail = res[0];
                 let city = this.formatCity(this.spotDetail);
                 let name = this.spotDetail.Name;
-                let id = this.spotDetail.ID;
                 // 麵包屑
                 this.breadcrumbList = [
                     {
@@ -124,10 +123,6 @@ export default {
                     },
                     {
                         title: name,
-                        routeName: "SpotDetail",
-                        params: {
-                            'id': id
-                        },
                     },
                 ];
                 // 圖片處理

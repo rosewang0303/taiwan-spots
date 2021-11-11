@@ -129,9 +129,15 @@ export const apiGetCityList = () => webTokenRequestV3.get(`/V3/Map/Basic/City`);
  * TDX api v2
  */
 
-// GET 取得所有觀光景點資料
+// GET 取得 所有 觀光景點資料
 export const apiGetSpotList = (data) => webTokenRequestV2.get(`/v2/Tourism/ScenicSpot?${data}`); 
-// GET 取得所有觀光餐飲資料
+// GET 取得 所有 觀光景點資料
+export const apiGetSpotCityList = (city, data) => webTokenRequestV2.get(`/v2/Tourism/ScenicSpot/${city}?${data}`);
+// GET 取得 所有 觀光餐飲資料
 export const apiGetFoodList = (data) => webTokenRequestV2.get(`/v2/Tourism/Restaurant?${data}`);
-// GET 取得所有觀光活動資料
+// GET 取得 縣市 觀光餐飲資料
+export const apiGetFoodCityList = (city, data) => webTokenRequestV2.get(`/v2/Tourism/Restaurant/${city}?${data}`);
+// GET 取得 所有 觀光活動資料
 export const apiGetEventList = (data) => webTokenRequestV2.get(`/v2/Tourism/Activity?${data}`); 
+// GET 取得 縣市 觀光活動資料
+export const apiGetEventCityList = (city, data) => webTokenRequestV2.get(`/v2/Tourism/Activity/${city}?${data}`);
