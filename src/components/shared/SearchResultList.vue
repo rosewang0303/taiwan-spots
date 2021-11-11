@@ -95,7 +95,9 @@ export default {
 }
 @media screen and (max-width: 768px){
     .search-result-list {
-
+        &__item {
+            margin-bottom: 21px;
+        }
     }
 }
 @media screen and (max-width: 576px){

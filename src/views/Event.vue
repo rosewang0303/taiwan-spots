@@ -229,6 +229,9 @@ export default {
             font-size: 24px;
             line-height: 35px;
         }
+        &__search-result {
+            margin-top: 24px;
+        }
     }
 }
 @media screen and (max-width: 576px){
