@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-12">
                     <div class="event__form">
-                        <DropdownMenu class="event__form-dropdown-menu" :menuList="menuList" v-model="form.city"/>
+                        <DropdownMenu class="event__form-dropdown-menu" type="city" v-model="param.city"/>
                         <DatePicker class="event__form-date-picker" v-model="param.date"/>
                         <InputText class="event__form-input" v-model="param.search" placeholder="想找有趣的？請輸入關鍵字"/>
                         <button class="btn event__form-btn" @click="search()">
@@ -43,20 +43,6 @@ export default {
                     routeName: "Event",
                 },
             ],
-            menuList: [
-                {
-                    title: "全部縣市",
-                    value: "",
-                },
-                {
-                    title: "台北市",
-                    value: "台北市",
-                },
-                {
-                    title: "新北市",
-                    value: "新北市",
-                },
-            ],
             typeList: [
                 {
                     title: "節慶活動",
@@ -83,9 +69,6 @@ export default {
                     img: require('@/assets/img/event_type_6.png'),
                 },
             ],
-            form: {
-                city: 0,
-            },
             param: {
                 city: null,
                 date: null,
@@ -100,6 +83,8 @@ export default {
         DatePicker,
         ClassImgCard,
         SearchResultList,
+    },
+    mounted() {
     },
     methods: {
         // 搜尋

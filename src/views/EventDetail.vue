@@ -1,73 +1,77 @@
 <template>
-    <div class="spot-detail">
+    <div class="event-detail">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <Breadcrumb :list="breadcrumbList"/>
                 </div>
                 <div class="col-12">
-                    <CarouselBanner class="spot-detail__banner" :imageList="imageList"/>
+                    <CarouselBanner class="event-detail__banner" :imageList="imageList"/>
                 </div>
                 <div class="col-12">
-                    <div class="spot-detail__name">{{spotDetail.Name}}</div>
+                    <div class="event-detail__name">{{eventDetail.Name}}</div>
                 </div>
-                <div class="col-12" v-if="spotDetail.Class1">
-                    <div v-if="spotDetail.Class1" class="spot-detail__class"># {{spotDetail.Class1}}</div>
-                    <div v-if="spotDetail.Class2" class="spot-detail__class"># {{spotDetail.Class2}}</div>
-                    <div v-if="spotDetail.Class3" class="spot-detail__class"># {{spotDetail.Class3}}</div>
+                <div class="col-12" v-if="eventDetail.Class1">
+                    <div v-if="eventDetail.Class1" class="event-detail__class"># {{eventDetail.Class1}}</div>
+                    <div v-if="eventDetail.Class2" class="event-detail__class"># {{eventDetail.Class2}}</div>
+                    <div v-if="eventDetail.Class3" class="event-detail__class"># {{eventDetail.Class3}}</div>
                 </div>
                 <div class="col-12">
-                    <div class="spot-detail__description-title">景點介紹：</div>
-                    <div class="spot-detail__description">{{spotDetail.DescriptionDetail}}</div>
+                    <div class="event-detail__description-title">活動介紹：</div>
+                    <div class="event-detail__description">{{eventDetail.Description}}</div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="spot-detail__info-wrap">
-                        <div class="spot-detail__info">
-                            <div class="spot-detail__info-title">開放時間：</div>
-                            <div class="spot-detail__info-value">{{spotDetail.OpenTime?spotDetail.OpenTime:'無'}}</div>
+                    <div class="event-detail__info-wrap">
+                        <div class="event-detail__info">
+                            <div class="event-detail__info-title">活動時間：</div>
+                            <div class="event-detail__info-value">{{ formatDate(eventDetail.StartTime) + " - " + formatDate(eventDetail.EndTime) }}</div>
                         </div>
-                        <div class="spot-detail__info">
-                            <div class="spot-detail__info-title">服務電話：</div>
-                            <div class="spot-detail__info-value">{{spotDetail.Phone?spotDetail.Phone:'無'}}</div>
+                        <div class="event-detail__info">
+                            <div class="event-detail__info-title">聯絡電話：</div>
+                            <div class="event-detail__info-value">{{eventDetail.Phone?eventDetail.Phone:'無'}}</div>
                         </div>
-                        <div class="spot-detail__info" v-if="spotDetail.Address">
-                            <div class="spot-detail__info-title">景點地址：</div>
-                            <a :href="'https://www.google.com.tw/maps/place/' + spotDetail.Address" target="_blank" class="spot-detail__info-value link">{{spotDetail.Address}}</a>
+                        <div class="event-detail__info">
+                            <div class="event-detail__info-title">主辦單位：</div>
+                            <div class="event-detail__info-value">{{eventDetail.Organizer?eventDetail.Organizer:'無'}}</div>
                         </div>
-                        <div class="spot-detail__info" v-if="spotDetail.WebsiteUrl">
-                            <div class="spot-detail__info-title">官方網站：</div>
-                            <a class="spot-detail__info-value link" :href="spotDetail.WebsiteUrl" target="_blank">{{spotDetail.WebsiteUrl}}</a>
+                        <div class="event-detail__info" v-if="eventDetail.Location">
+                            <div class="event-detail__info-title">活動地點：</div>
+                            <a :href="'https://www.google.com.tw/maps/place/' + eventDetail.Location" target="_blank" class="event-detail__info-value link">{{eventDetail.Location}}</a>
                         </div>
-                        <div class="spot-detail__info">
-                            <div class="spot-detail__info-title">票價資訊：</div>
-                            <div class="spot-detail__info-value">{{spotDetail.TicketInfo?spotDetail.TicketInfo:'無'}}</div>
+                        <div class="event-detail__info" v-if="eventDetail.WebsiteUrl">
+                            <div class="event-detail__info-title">官方網站：</div>
+                            <a class="event-detail__info-value link" :href="eventDetail.WebsiteUrl" target="_blank">{{eventDetail.WebsiteUrl}}</a>
                         </div>
-                        <div class="spot-detail__info">
-                            <div class="spot-detail__info-title">注意事項：</div>
-                            <div class="spot-detail__info-value">{{spotDetail.Remarks?spotDetail.Remarks:'無'}}</div>
+                        <div class="event-detail__info">
+                            <div class="event-detail__info-title">活動費用：</div>
+                            <div class="event-detail__info-value">{{eventDetail.Charge?eventDetail.Charge:'無'}}</div>
+                        </div>
+                        <div class="event-detail__info">
+                            <div class="event-detail__info-title">注意事項：</div>
+                            <div class="event-detail__info-value">{{eventDetail.Remarks?eventDetail.Remarks:'無'}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <div class="spot-detail__map-wrap">
-                        <!-- <gmap-map class="spot-detail__map"
+                    <div class="event-detail__map-wrap">
+                        <!-- <gmap-map class="event-detail__map"
                             :zoom="14"    
                             :center="center">
                             <gmap-marker :position="center"></gmap-marker>
                         </gmap-map> -->
                     </div>
-                    <div class="spot-detail__nearby-wrap">
-                        <div class="spot-detail__nearby-title">周邊資訊：</div>
-                        <div class="spot-detail__nearby-item-wrap">
-                            <div class="spot-detail__nearby-item">
+                    <div class="event-detail__nearby-wrap">
+                        <div class="event-detail__nearby-title">周邊資訊：</div>
+                        <div class="event-detail__nearby-item-wrap">
+                            <div class="event-detail__nearby-item">
                                 <img src="@/assets/icon/nearby_spot.svg"/>
                                 <div>附近景點</div>
                             </div>
-                            <div class="spot-detail__nearby-item">
+                            <div class="event-detail__nearby-item">
                                 <img src="@/assets/icon/nearby_event.svg"/>
                                 <div>附近活動</div>
                             </div>
-                            <div class="spot-detail__nearby-item">
+                            <div class="event-detail__nearby-item">
                                 <img src="@/assets/icon/nearby_food.svg"/>
                                 <div>附近美食</div>
                             </div>
@@ -81,12 +85,12 @@
 <script>
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import CarouselBanner from '@/components/shared/CarouselBanner'
-import { apiGetSpotList } from "@/api/api"; 
+import { apiGetEventList } from "@/api/api"; 
 
 export default {
     data () {
         return {
-            spotDetail: null,
+            eventDetail: null,
             breadcrumbList: [],
             imageList: [],
             // google map
@@ -103,39 +107,39 @@ export default {
     methods: {
         callApiGetSpotList() {
             let param = "$filter=ID eq '" + this.$route.params.id + "'";
-            apiGetSpotList(param)
+            apiGetEventList(param)
             .then(res=> {
-                this.spotDetail = res[0];
-                let city = this.formatCity(this.spotDetail);
-                let name = this.spotDetail.Name;
-                let id = this.spotDetail.ID;
+                this.eventDetail = res[0];
+                let city = this.formatCity(this.eventDetail);
+                let name = this.eventDetail.Name;
+                let id = this.eventDetail.ID;
                 // 麵包屑
                 this.breadcrumbList = [
                     {
-                        title: "探索景點",
-                        routeName: "Spot",
+                        title: "節慶活動",
+                        routeName: "Event",
                     },
                     {
                         title: city,
-                        routeName: "Spot",
+                        routeName: "Event",
                         query: {
                             'city': city
                         },
                     },
                     {
                         title: name,
-                        routeName: "SpotDetail",
+                        routeName: "eventDetail",
                         params: {
                             'id': id
                         },
                     },
                 ];
                 // 圖片處理
-                this.imageList = this.formatImageList(this.spotDetail.Picture);
+                this.imageList = this.formatImageList(this.eventDetail.Picture);
                 // 處理google map
                 this.center = {
-                    lat: this.spotDetail.Position.PositionLat,
-                    lng: this.spotDetail.Position.PositionLon,
+                    lat: this.eventDetail.Position.PositionLat,
+                    lng: this.eventDetail.Position.PositionLon,
                 }
             })
             .catch(err=> {
@@ -151,7 +155,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.spot-detail {
+.event-detail {
     &__banner {
         margin: 30px 0;
     }
@@ -249,7 +253,7 @@ export default {
     }
 }
 @media screen and (max-width: 768px){
-    .spot-detail {
+    .event-detail {
         margin-top: 18px;
         &__banner {
             margin: 16px 0;
@@ -322,7 +326,7 @@ export default {
     
 }
 @media screen and (max-width: 576px){
-    .spot-detail {
+    .event-detail {
         
     }
 }

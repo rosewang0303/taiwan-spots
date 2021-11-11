@@ -1,7 +1,7 @@
 <template>
     <div class="dropdown-menu">
-        <div class="dropdown-menu__selected" @click="menuOpen = !menuOpen">
-            <div class="dropdown-menu__selected-title">{{menuList[syncValue].title}}</div>
+        <div class="dropdown-menu__selected" @click="menuOpenClick()">
+            <div class="dropdown-menu__selected-title">{{menuList[selectedIndex]?menuList[selectedIndex].title:"沒有選項"}}</div>
             <img :class="{'open': menuOpen}" src="@/assets/icon/dropdown_arrow.svg"/>
         </div>
         <div class="dropdown-menu__menu" :class="{'dropdown-menu__menu--open': menuOpen}">
@@ -12,10 +12,13 @@
     </div>
 </template>
 <script>
+import { apiGetCityList } from "@/api/api"; 
+
 export default {
     data () {
         return {
             menuOpen: false,
+            selectedIndex: 0,
         }
     },
     props: {
@@ -24,13 +27,58 @@ export default {
             type: Array,
             default: () => { return [] },
         },
+        type: {
+            type: String,
+            default: null,
+        },
+    },
+    watch: {
+        type: {
+            handler: function(val) {
+                if(val) {
+                    if(val == "city") {
+                        // 取得城市選單
+                        this.callApiGetCityList();
+                    }
+                }
+            },
+            immediate: true,
+        },
     },
     methods: {
+        // 選擇
+        menuOpenClick() {
+            if(this.menuList.length > 0) {
+                this.menuOpen = !this.menuOpen;
+            }
+        },
         // 選擇處理
         menuSelect(index) {
             this.menuOpen = false;
-            this.syncValue = index;
-        }
+            this.selectedIndex = index;
+            this.syncValue = this.menuList[this.selectedIndex].value
+        },
+        // 城市列表
+        callApiGetCityList() {
+            apiGetCityList()
+            .then(res=> {
+                this.menuList = [];
+                this.menuList.push({
+                    title: "全部縣市",
+                    value: "",
+                });
+                res.map( item => {
+                    this.menuList.push({
+                        title: item.CityName,
+                        value: item.City,
+                    });
+                });
+            })
+            .catch(err=> {
+                // 發生錯誤
+                console.error(err)
+            })
+        },
     },
     computed: {
         syncValue: {

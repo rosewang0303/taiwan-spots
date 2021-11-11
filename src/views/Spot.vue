@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-12">
                     <div class="spot__form">
-                        <DropdownMenu class="spot__form-dropdown-menu" :menuList="menuList" v-model="form.city"/>
+                        <DropdownMenu class="spot__form-dropdown-menu" type="city" v-model="param.city"/>
                         <InputText class="spot__form-input" v-model="param.search" placeholder="你想去哪裡？請輸入關鍵字"/>
                         <button class="btn spot__form-btn" @click="search()">
                             <img src="@/assets/icon/search_30.svg"/>
@@ -37,20 +37,6 @@ export default {
                 {
                     title: "探索景點",
                     routeName: "Spot",
-                },
-            ],
-            menuList: [
-                {
-                    title: "全部縣市",
-                    value: "",
-                },
-                {
-                    title: "台北市",
-                    value: "台北市",
-                },
-                {
-                    title: "新北市",
-                    value: "新北市",
                 },
             ],
             typeList: [
@@ -83,9 +69,6 @@ export default {
                     img: require('@/assets/img/spot_type_7.png'),
                 },
             ],
-            form: {
-                city: 0,
-            },
             param: {
                 city: null,
             },

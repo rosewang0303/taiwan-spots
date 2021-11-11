@@ -1,24 +1,33 @@
 <template>
     <div class="carousel-banner">
-        <div class="carousel-banner__arrow-wrap">
-            <div class="carousel-banner__arrow carousel-banner__arrow--left" :class="{'disabled': bannerIndex == 0}" @click="bannerPrevious()"></div>
-            <div class="carousel-banner__arrow carousel-banner__arrow--right" :class="{'disabled': bannerIndex == list.length-1}" @click="bannerNext()"></div>
+        <div class="carousel-banner__arrow-wrap" v-if="countList.length > 1">
+            <div class="carousel-banner__arrow carousel-banner__arrow--left" :class="{'disabled': bannerIndex == 0 || countList.length <= 1}" @click="bannerPrevious()"></div>
+            <div class="carousel-banner__arrow carousel-banner__arrow--right" :class="{'disabled': bannerIndex == countList.length-1 || countList.length <= 1}" @click="bannerNext()"></div>
         </div>
-        <div class="carousel-banner__banner-wrap">
+        <div v-if="list.length > 0" class="carousel-banner__banner-wrap">
             <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
                 <div v-for="(item, index) in list" :key="index">
                     <router-link :to="{name: routeName, query: routeQuery(item), params: routeParams(item)}">
                         <div class="carousel-banner__banner-img-wrap" :style="'width:'+ bannerWidth +'px;'">
-                            <div v-if="titleShow" class="carousel-banner__banner-title">{{ formatCity(item) + " | " + item.Name }}</div>
-                            <img class="carousel-banner__img" :src="imageList[index]"/>
+                            <div class="carousel-banner__banner-title">{{ formatCity(item) + " | " + item.Name }}</div>
+                            <img class="carousel-banner__img" :src="imageList[index].img" :alt="imageList[index].alt"/>
                         </div>
                     </router-link>
                 </div>
             </div>
         </div>
-        <div class="carousel-banner__dots-wrap">
+        <div v-else class="carousel-banner__banner-wrap">
+            <div class="carousel-banner__banner-list" :style="'transform:translateX('+ translateWidth +'px);'">
+                <div v-for="(item, index) in imageList" :key="index">
+                    <div class="carousel-banner__banner-img-wrap" :style="'width:'+ bannerWidth +'px;'">
+                        <img class="carousel-banner__img" :src="item.img" :alt="item.alt"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-banner__dots-wrap" v-if="countList.length > 1">
             <div class="carousel-banner__dots" :class="{'carousel-banner__dots--active': bannerIndex == index}" 
-                v-for="(item, index) in list" :key="index" @click="bannerIndex = index"></div>
+                v-for="(item, index) in countList" :key="index" @click="bannerIndex = index"></div>
         </div>
     </div>
 </template>
@@ -29,7 +38,6 @@ export default {
             bannerIndex: 0,
             bannerWidth: 0,
             translateWidth: 0,
-            imageList: [],
         }
     },
     props: {
@@ -37,13 +45,13 @@ export default {
             type: Array,
             default: () => { return []}
         },
+        imageList: {
+            type: Array,
+            default: () => { return []}
+        },
         routeName: {
             type: String,
             default: null
-        },
-        titleShow: {
-            type: Boolean,
-            default: true,
         },
     },
     beforeDestroy() {
@@ -68,14 +76,15 @@ export default {
             },
         },
         list: {
-            handler: function() {
-                if(this.routeName == "SpotDetail") {
-                    for(var i=0; i<this.list.length; i++) {
-                        this.imageList.push(this.list[i].Picture.PictureUrl1)
-                    }
-                }else {
-                    for(var j=0; j<this.list.length; j++) {
-                        this.imageList.push(this.list[j])
+            handler: function(val) {
+                // 處理圖片
+                if(val.length > 0) {
+                    for(var i=0; i<val.length; i++) {
+                        let picture = val[i].Picture;
+                        let pictrueList = this.formatImageList(picture);
+                        pictrueList.map( item => {
+                            this.imageList.push(item)
+                        });
                     }
                 }
             },
@@ -117,9 +126,18 @@ export default {
         },
         // 監聽resize
         resizeHandler() {
-           this.bannerWidth = document.getElementsByClassName('index__banner-wrap')[0].offsetWidth;
+           this.bannerWidth = document.getElementsByClassName('carousel-banner__banner-wrap')[0].offsetWidth;
         },
     },
+    computed: {
+        countList() {
+            if(this.list.length > 0) {
+                return this.list
+            }else {
+                return this.imageList
+            }
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>

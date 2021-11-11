@@ -23,3 +23,13 @@
 .mark {
     border-bottom: 2px solid $yellow;
 }
+.link {
+    color: $primary-500;
+    text-decoration: underline;
+    &:hover {
+        color: $primary-500;
+    }
+    &:visited {
+        color: $primary-500;
+    }
+}

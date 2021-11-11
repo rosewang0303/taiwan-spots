@@ -7,7 +7,9 @@ import Index from '@/views/Index'
 import Spot from '@/views/Spot'
 import SpotDetail from '@/views/SpotDetail'
 import Event from '@/views/Event'
+import EventDetail from '@/views/EventDetail'
 import Food from '@/views/Food'
+import FoodDetail from '@/views/FoodDetail'
 
 Vue.use(VueRouter)
 
@@ -47,10 +49,22 @@ const routes = [
         component: Event,
       },
       {
+        // 活動詳細
+        path: 'event/:id',
+        name: 'EventDetail',
+        component: EventDetail,
+      },
+      {
         // 品嚐美食
         path: 'food',
         name: 'Food',
         component: Food,
+      },
+      {
+        // 美食詳細
+        path: 'food/:id',
+        name: 'FoodDetail',
+        component: FoodDetail,
       },
       // 不符合router表預設轉址到首頁:放最後
       { 
