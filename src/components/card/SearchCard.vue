@@ -18,10 +18,6 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-        }
-    },
     props: {
         item: {
             type: Object,
@@ -31,12 +27,6 @@ export default {
             type: String,
             default: null,
         },
-    },
-    watch: {
-    },
-    components: {
-    },
-    methods: {
     },
 }
 </script>

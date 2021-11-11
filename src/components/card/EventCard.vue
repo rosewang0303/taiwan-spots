@@ -25,21 +25,11 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-        }
-    },
     props: {
         item: {
             type: Object,
             default: () => { return {} }
         }
-    },
-    watch: {
-    },
-    components: {
-    },
-    methods: {
     },
 }
 </script>

@@ -32,6 +32,8 @@ export default {
     &__wrap {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
+        white-space: nowrap;
     }
     &__item {
         font-size: 16px;

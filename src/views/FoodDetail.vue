@@ -47,21 +47,7 @@
                         </gmap-map> -->
                     </div>
                     <div class="food-detail__nearby-wrap">
-                        <div class="food-detail__nearby-title">周邊資訊：</div>
-                        <div class="food-detail__nearby-item-wrap">
-                            <div class="food-detail__nearby-item">
-                                <img src="@/assets/icon/nearby_spot.svg"/>
-                                <div>附近景點</div>
-                            </div>
-                            <div class="food-detail__nearby-item">
-                                <img src="@/assets/icon/nearby_event.svg"/>
-                                <div>附近活動</div>
-                            </div>
-                            <div class="food-detail__nearby-item">
-                                <img src="@/assets/icon/nearby_food.svg"/>
-                                <div>附近美食</div>
-                            </div>
-                        </div>
+                        <NearbyInfo :item="foodDetail"/>
                     </div>
                 </div>
             </div>
@@ -71,6 +57,7 @@
 <script>
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import CarouselBanner from '@/components/shared/CarouselBanner'
+import NearbyInfo from '@/components/shared/NearbyInfo'
 import { apiGetFoodList } from "@/api/api"; 
 
 export default {
@@ -89,6 +76,17 @@ export default {
     mounted() {
         // 取得景點資訊
         this.callApiGetFoodList();
+    },
+    watch: {
+        $route: {
+            handler: function(val) {
+                if(val.params) {
+                    this.callApiGetFoodList();
+                }
+            },
+            immediate: true,
+            deep: true,
+        },
     },
     methods: {
         callApiGetFoodList() {
@@ -132,6 +130,7 @@ export default {
     components: {
         Breadcrumb,
         CarouselBanner,
+        NearbyInfo,
     }
 }
 </script>
@@ -205,33 +204,6 @@ export default {
     &__nearby-wrap {
         margin-top: 32px;
     }
-    &__nearby-title {
-        font-weight: bold;
-        font-size: 20px;
-        line-height: 29px;
-        margin-bottom: 20px;
-    }
-    &__nearby-item-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    &__nearby-item {
-        cursor: pointer;
-        width: 29.6%;
-        border: 1.33px solid $gray;
-        background-color: $white;
-        border-radius: 6px;
-        text-align: center;
-        padding: 25px 0;
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 28px;
-        color: $primary;
-        img {
-            margin-bottom: 2px;
-        }
-    }
 }
 @media screen and (max-width: 768px){
     .food-detail {
@@ -290,18 +262,6 @@ export default {
             margin: 0 -15px;
             margin-top: 0px;
             padding: 20px 15px 30px 15px;
-        }
-        &__nearby-title {
-            font-size: 18px;
-            line-height: 26px;
-            margin-bottom: 20px;
-        }
-        &__nearby-item-wrap {
-            flex-wrap: wrap;
-        }
-        &__nearby-item {
-            width: 100%;
-            margin-bottom: 9px;
         }
     }
     
