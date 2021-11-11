@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="row food__block" v-if="classBlockShow">
-                <div class="food__block-title col-12">熱門主題</div>
+                <div class="food__block-title col-12">熱門分類</div>
                 <ClassImgCard v-for="(item, index) in typeList" :key="index" type="food" :className="item.title" :img="item.img"/>
             </div>
             <SearchResultList v-else class="food__search-result" :list="searchList" routeName="FoodDetail"/>
@@ -100,7 +100,9 @@ export default {
                     }
                     // 搜尋
                     if(checkSearch > 0) {
-                        this.callApiGetFoodCityList()
+                        setTimeout(()=> {
+                            this.callApiGetFoodCityList()
+                        }, 100);
                     }
             },
             immediate: true,
@@ -129,7 +131,6 @@ export default {
             apiGetFoodCityList(city, param)
             .then(res=> {
                 this.searchList = res;
-                console.error(res)
             })
             .catch(err=> {
                 // 發生錯誤

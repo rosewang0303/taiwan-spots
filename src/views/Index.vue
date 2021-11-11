@@ -148,12 +148,16 @@ export default {
         search() {
             let type = this.param.type;
             let keyword = this.param.keyword;
+            let query = null;
+            if(keyword) {
+                query = { keyword: keyword }
+            }
             if(type == "event") {
-                this.$router.push({ name: 'Event', query: { keyword: keyword }});
+                this.$router.push({ name: 'Event', query: query});
             }else if(type == "food"){
-                this.$router.push({ name: 'Food', query: { keyword: keyword }});
+                this.$router.push({ name: 'Food', query: query});
             }else {
-                this.$router.push({ name: 'Spot', query: { keyword: keyword }});
+                this.$router.push({ name: 'Spot', query: query});
             }
         },
         callApiGetBannerList() {

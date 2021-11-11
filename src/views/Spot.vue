@@ -104,7 +104,9 @@ export default {
                 }
                 // 搜尋
                 if(checkSearch > 0) {
-                    this.callApiGetSpotCityList()
+                    setTimeout(()=> {
+                        this.callApiGetSpotCityList()
+                    }, 100);
                 }
             },
             immediate: true,
@@ -131,7 +133,6 @@ export default {
             apiGetSpotCityList(city, param)
             .then(res=> {
                 this.searchList = res;
-                console.error(res)
             })
             .catch(err=> {
                 // 發生錯誤
