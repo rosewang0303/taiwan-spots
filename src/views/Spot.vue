@@ -140,10 +140,13 @@ export default {
             let newQuery = JSON.parse(JSON.stringify(this.$route.query));
             if(keyword) {
                 newQuery["keyword"] = keyword
+                this.$router.replace({query: newQuery});
             }else {
-                delete newQuery["keyword"];
+                if(this.$route.query.keyword) {
+                    delete newQuery["keyword"];
+                    this.$router.replace({query: newQuery});
+                }
             }
-            this.$router.replace({query: newQuery});
         },
         // 選擇主題
         searchClass(className) {
