@@ -224,6 +224,7 @@ export default {
 @media screen and (max-width: 768px){
     .event-detail {
         margin-top: 18px;
+        margin-bottom: 0;
         &__banner {
             margin: 16px 0;
         }
