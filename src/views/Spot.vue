@@ -35,6 +35,7 @@ import DropdownMenu from '@/components/shared/DropdownMenu'
 import InputText from '@/components/shared/InputText'
 import ClassImgCard from '@/components/card/ClassImgCard'
 import SearchResultList from '@/components/shared/SearchResultList'
+
 import { apiGetSpotCityList } from "@/api/api";
 
 export default {
@@ -137,7 +138,11 @@ export default {
             // 處理url
             let keyword = this.param.keyword;
             let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-            newQuery["keyword"] = keyword 
+            if(keyword) {
+                newQuery["keyword"] = keyword
+            }else {
+                delete newQuery["keyword"];
+            }
             this.$router.replace({query: newQuery});
         },
         // 選擇主題
