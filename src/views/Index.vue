@@ -161,7 +161,7 @@ export default {
             }
         },
         callApiGetBannerList() {
-            let param = "$filter=$orderby=SrcUpdateTime desc&$top=5&$skip=1";
+            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=SrcUpdateTime desc&$top=5&$skip=1";
 
             apiGetSpotList(param)
             .then(res=> {
