@@ -275,7 +275,7 @@ export default {
 @media screen and (max-width: 576px){
     .carousel-banner {
         &__arrow-wrap {
-            display: none;
+            // display: none;
         }
         &__banner-wrap {
             height: 183px;
