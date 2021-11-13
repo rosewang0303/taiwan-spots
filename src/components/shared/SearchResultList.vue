@@ -37,6 +37,7 @@ export default {
             pageTotal: 0,
             nowPage: 1,
             showList: [],
+            dataSize: 20,
         }
     },
     props: {
@@ -54,7 +55,7 @@ export default {
             handler: function(val) {
                 let total = 0;
                 if(val.length > 0) {
-                    let totalRaw = (val.length / 20).toString().split(".");
+                    let totalRaw = (val.length / this.dataSize).toString().split(".");
                     total = parseInt(totalRaw[0]);
                     if(totalRaw[1] && totalRaw[1] > 0) {
                         total++;
@@ -63,13 +64,13 @@ export default {
                 this.pageTotal = total;
 
                 // 預設顯示list
-                this.showList = JSON.parse(JSON.stringify(val)).splice(20*(this.nowPage-1), 20)
+                this.showList = JSON.parse(JSON.stringify(val)).splice(this.dataSize*(this.nowPage-1), this.dataSize)
             },
             immediate: true,
         },
         nowPage: {
             handler: function(val) {
-                this.showList = JSON.parse(JSON.stringify(this.list)).splice(20*(val-1), 20);
+                this.showList = JSON.parse(JSON.stringify(this.list)).splice(this.dataSize*(val-1), this.dataSize);
                 window.scrollTo(0, this.$refs.list.offsetParent.offsetTop-60);
             },
         },
