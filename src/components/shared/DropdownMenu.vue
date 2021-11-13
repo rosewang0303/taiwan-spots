@@ -35,10 +35,6 @@ export default {
             type: String,
             default: null,
         },
-        defaultTitle: {
-            type: String,
-            default: null,
-        },
     },
     beforeDestroy() {
         window.removeEventListener('click', this.clickHandler);
@@ -67,6 +63,21 @@ export default {
             },
             immediate: true,
         },
+        value: {
+            handler: function(val) {
+                if(val && this.list) {
+                    for(var i=0; i<this.list.length; i++) {
+                        let item = this.list[i];
+                        if(val == item.value) {
+                            this.selectedIndex = i;
+                            this.syncValue = this.list[this.selectedIndex].value;
+                            return
+                        }
+                    }
+                }
+            },
+            immediate: true,
+        },
     },
     methods: {
         // 點擊選單外:選單關閉
@@ -83,12 +94,10 @@ export default {
         },
         // 選擇處理
         menuSelect(index) {
-            if(index) {
-                // 電腦版
-                this.menuOpen = false;
-                this.selectedIndex = index;
-                this.syncValue = this.menuList[this.selectedIndex].value
-            }
+            // 電腦版
+            this.menuOpen = false;
+            this.selectedIndex = index;
+            this.syncValue = this.menuList[this.selectedIndex].value
         },
         // 行動版選單 select change
         selectChangeHandler(event) {
@@ -117,16 +126,6 @@ export default {
                         value: item.City,
                     });
                 });
-                if(this.defaultTitle && this.list) {
-                    for(var i=0; i<this.list.length; i++) {
-                        let item = this.list[i];
-                        if(this.defaultTitle == item.title) {
-                            this.selectedIndex = i;
-                            this.syncValue = this.list[this.selectedIndex].value;
-                            return
-                        }
-                    }
-                }
             })
             .catch(err=> {
                 // 發生錯誤

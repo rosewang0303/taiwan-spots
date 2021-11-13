@@ -7,8 +7,9 @@
                 </div>
                 <div class="col-12">
                     <div class="event__form">
-                        <DropdownMenu class="event__form-dropdown-menu" :defaultTitle="defaultCityTitle" type="city" v-model="param.city"/>
+                        <DropdownMenu class="event__form-city" type="city" v-model="param.city"/>
                         <DatePicker class="event__form-date-picker" v-model="param.date"/>
+                        <DropdownMenu class="event__form-class" :menuList="menuTypeList" v-model="param.class"/>
                         <InputText class="event__form-input" v-model="param.keyword" placeholder="想找有趣的？請輸入關鍵字"/>
                         <button class="btn event__form-btn" @click="search()">
                             <img src="@/assets/icon/search_30.svg"/>
@@ -19,7 +20,7 @@
             </div>
             <div class="row event__block" v-if="classBlockShow">
                 <div class="event__block-title col-12">熱門主題</div>
-                <ClassImgCard v-for="(item, index) in typeList" :key="index" type="food" :className="item.title" :img="item.img"/>
+                <ClassImgCard v-for="(item, index) in typeList" :key="index" type="food" :className="item.title" :img="item.img" @searchClass="searchClass"/>
             </div>
             <SearchResultList v-else class="event__search-result" :list="searchList" routeName="EventDetail"/>
         </div>
@@ -47,37 +48,44 @@ export default {
             typeList: [
                 {
                     title: "節慶活動",
+                    value: "節慶活動",
                     img: require('@/assets/img/event_type_1.png'),
                 },
                 {
                     title: "自行車活動",
+                    value: "自行車活動",
                     img: require('@/assets/img/event_type_2.png'),
                 },
                 {
                     title: "遊憩活動",
+                    value: "遊憩活動",
                     img: require('@/assets/img/event_type_3.png'),
                 },
                 {
                     title: "產業文化活動",
+                    value: "產業文化活動",
                     img: require('@/assets/img/event_type_4.png'),
                 },
                 {
                     title: "年度活動",
+                    value: "年度活動",
                     img: require('@/assets/img/event_type_5.png'),
                 },
                 {
                     title: "四季活動",
+                    value: "四季活動",
                     img: require('@/assets/img/event_type_6.png'),
                 },
             ],
             param: {
-                city: null,
+                city: "",
                 date: null,
                 keyword: null,
+                class: "",
             },
-            defaultCityTitle: null,
             searchList: [],
             classBlockShow: true,
+            menuTypeList: [],
         }
     },
     watch: {
@@ -87,11 +95,6 @@ export default {
                     // keyword 帶入
                     if(val.query.keyword) {
                         this.param.keyword = val.query.keyword;
-                        checkSearch++;
-                    }
-                    // city 帶入
-                    if(val.query.city) {
-                        this.defaultCityTitle = val.query.city
                         checkSearch++;
                     }
                     // 搜尋
@@ -114,6 +117,13 @@ export default {
         SearchResultList,
     },
     mounted() {
+        let defaultVal = {
+            title: "全部主題",
+            value: "",
+        }
+        let defaultList = JSON.parse(JSON.stringify(this.typeList));
+        defaultList.splice(0, 0, defaultVal);
+        this.menuTypeList = defaultList;
     },
     methods: {
         // 搜尋
@@ -125,24 +135,53 @@ export default {
             newQuery["keyword"] = keyword 
             this.$router.replace({query: newQuery});
         },
+        // 選擇主題
+        searchClass(className) {
+            this.param.class = className;
+            this.callApiGetEventCityList();
+        },
         // 餐廳塞選
         callApiGetEventCityList() {
             this.classBlockShow = false;
             let param = "";
             let city = "";
-            let keyword = this.param.keyword
-            let date = this.param.date
-
-            if(this.param.keyword && this.param.date) {
-                param = `$filter=contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') or contains(Description, '${date}') or contains(Description,'${date}') and Picture/PictureUrl1 ne null`;
+            if(this.param.keyword && this.param.date && this.param.class) {
+                let keyword = this.param.keyword
+                let date = this.param.date
+                let className = this.param.class
+                param = `$filter=(contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') or contains(Description, '${date}') or contains(Description,'${date}') or contains(Class1, '${className}') or contains(Class2, '${className}')) and Picture/PictureUrl1 ne null`;
+            } else if(!this.param.keyword && !this.param.date && !this.param.class){
+                param = `$filter=Picture/PictureUrl1 ne null`;
             }else {
-                if(keyword) {
-                    param = `$filter=contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}') and Picture/PictureUrl1 ne null`;
+                let paramCount = 0;
+                param = `$filter=`;
+                if(this.param.keyword) {
+                    let keyword = this.param.keyword
+                    if(paramCount > 0) {
+                        param += "or "
+                    }
+                    param += `(contains(Name, '${keyword}') or contains(Address,'${keyword}') or contains(Description, '${keyword}'))`;
+                    paramCount++;
                 } 
-                if(date) {
-                    param = `$filter=contains(Description, '${date}') or contains(Description,'${date}') and Picture/PictureUrl1 ne null`;
+                if(this.param.date) {
+                    let date = this.param.date
+                    if(paramCount > 0) {
+                        param += "or "
+                    }
+                    param += `(contains(Description, '${date}') or contains(Description,'${date}'))`;
+                    paramCount++;
                 } 
+                if(this.param.class) {
+                    let className = this.param.class
+                    if(paramCount > 0) {
+                        param += "or "
+                    }
+                    param += `(contains(Class1, '${className}') or contains(Class2, '${className}'))`;
+                    paramCount++;
+                }
+                param += ` and Picture/PictureUrl1 ne null`;
             }
+
             if(this.param.city) {
                 city = this.param.city;
             }
@@ -171,14 +210,17 @@ export default {
         padding: 0 15px;
         margin-top: 40px;
     }
-    &__form-dropdown-menu {
-        width: 21.6%;
+    &__form-city {
+        width: 17.2%;
     }
     &__form-date-picker {
-        width: 21.6%;
+        width: 17.2%;
+    }
+    &__form-class {
+        width: 17.2%;
     }
     &__form-input {
-        width: 33.3%;
+        width: 23.3%;
     }
     &__form-btn {
         width: 15.8%;
@@ -207,7 +249,11 @@ export default {
             margin-top: 16px;
             margin-bottom: 24px;
         }
-        &__form-dropdown-menu {
+        &__form-city {
+            width: 100%;
+            margin-bottom: 7px;
+        }
+        &__form-class {
             width: 100%;
             margin-bottom: 7px;
         }

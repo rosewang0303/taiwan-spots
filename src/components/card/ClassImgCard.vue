@@ -1,5 +1,5 @@
 <template>
-    <div class="class-img-card col-lg-3 col-md-4 col-6">
+    <div class="class-img-card col-lg-3 col-md-4 col-6" @click="searchClass(className)">
         <div class="class-img-card__img-wrap">
             <img :src="img"/>
         </div>
@@ -25,7 +25,12 @@ export default {
             type: String,
             default: null
         }
-    }
+    },
+    methods: {
+        searchClass(className) {
+            this.$emit("searchClass", className);
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>
