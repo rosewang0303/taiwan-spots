@@ -129,12 +129,11 @@ export default {
         &__wrap {
             background-color: unset;
             border: none;
-            border-radius: unset;
+            border-radius: 10px;
         }
         &__img-wrap {
             width: 90px;
             height: 62px;
-            border-radius: 10px;
             border: 1px solid $gray;
         }
         &__info-wrap {

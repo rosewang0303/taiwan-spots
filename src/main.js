@@ -5,7 +5,8 @@ import store from './store'
 import functions from './functions'
 // 引入normalize reset預設樣式
 import 'normalize.css/normalize.css'
-import * as VueGoogleMaps from "vue2-google-maps" // Import package
+// 引入 google map vue套件
+import * as VueGoogleMaps from "vue2-google-maps"
 
 Vue.config.productionTip = false
 

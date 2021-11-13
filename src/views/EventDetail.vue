@@ -265,7 +265,6 @@ export default {
             background: $gray-200;
             height: 185px;
             border-radius: 12px;
-            margin: 0 -15px;
             width: unset;
         }
         &__map {

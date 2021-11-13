@@ -38,6 +38,7 @@ export default {
         .class-img-card__img-wrap img {
             transition: 0.5s all ease;
             transform: scale(1.5);
+            transform-origin: 0,0;
         }
     }
     &__item-title {
@@ -66,6 +67,14 @@ export default {
     .class-img-card {
         &__img-wrap {
             border-radius: 16px;
+        }
+    }
+}
+@media screen and (max-width: 576px){
+    .class-img-card {
+        &__item-title {
+            font-size: 16px;
+            line-height: 23px;
         }
     }
 }
