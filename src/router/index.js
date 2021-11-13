@@ -28,7 +28,8 @@ const routes = [
       {
         // 預設路徑
         path: '/',
-        redirect: '/index',
+        name: 'Index',
+        component: Index,
       },
       {
         // 首頁
