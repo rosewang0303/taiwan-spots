@@ -130,9 +130,11 @@ export default {
                 // 圖片處理
                 this.imageList = this.formatImageList(this.eventDetail.Picture);
                 // 處理google map
-                this.center = {
-                    lat: this.eventDetail.Position.PositionLat,
-                    lng: this.eventDetail.Position.PositionLon,
+                if(this.eventDetail.Position.PositionLat && this.eventDetail.Position.PositionLon) {
+                    this.center = {
+                        lat: this.eventDetail.Position.PositionLat,
+                        lng: this.eventDetail.Position.PositionLon,
+                    }
                 }
             })
             .catch(err=> {

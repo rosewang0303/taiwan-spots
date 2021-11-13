@@ -116,9 +116,11 @@ export default {
                 // 圖片處理
                 this.imageList = this.formatImageList(this.foodDetail.Picture);
                 // 處理google map
-                this.center = {
-                    lat: this.foodDetail.Position.PositionLat,
-                    lng: this.foodDetail.Position.PositionLon,
+                if(this.foodDetail.Position.PositionLat && this.foodDetail.Position.PositionLon) {
+                    this.center = {
+                        lat: this.foodDetail.Position.PositionLat,
+                        lng: this.foodDetail.Position.PositionLon,
+                    }
                 }
             })
             .catch(err=> {
