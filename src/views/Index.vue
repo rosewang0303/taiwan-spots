@@ -116,7 +116,7 @@ export default {
             ],
             // api
             param: {
-                type: null,
+                type: "spot",
                 keyword: null,
             },
             bannerList: [],

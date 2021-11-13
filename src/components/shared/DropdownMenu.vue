@@ -3,6 +3,9 @@
         <div class="dropdown-menu__selected" @click="menuOpenClick()">
             <div class="dropdown-menu__selected-title">{{selectedTitle}}</div>
             <img :class="{'open': menuOpen}" src="@/assets/icon/dropdown_arrow.svg"/>
+            <select class="dropdown-menu__mb-menu" v-model="syncValue" @change="selectChangeHandler($event)">
+                <option :value="item.value" v-for="(item, index) in list" :key="index">{{item.title}}</option>
+            </select>
         </div>
         <div class="dropdown-menu__menu" :class="{'dropdown-menu__menu--open': menuOpen}">
             <ul>
@@ -74,15 +77,31 @@ export default {
         },
         // 選擇
         menuOpenClick() {
-            if(this.menuList.length > 0) {
+            if(this.menuList.length > 0 && !this.isMobile()) {
                 this.menuOpen = !this.menuOpen;
             }
         },
         // 選擇處理
         menuSelect(index) {
-            this.menuOpen = false;
-            this.selectedIndex = index;
-            this.syncValue = this.menuList[this.selectedIndex].value
+            if(index) {
+                // 電腦版
+                this.menuOpen = false;
+                this.selectedIndex = index;
+                this.syncValue = this.menuList[this.selectedIndex].value
+            }
+        },
+        // 行動版選單 select change
+        selectChangeHandler(event) {
+            let selectedVal = event.target.value;
+            
+            for(var i=0; i<this.list.length; i++) {
+                let item = this.list[i];
+                
+                if(item.value == selectedVal) {
+                    this.selectedIndex = i;
+                    return;
+                }
+            }
         },
         // 城市列表
         callApiGetCityList() {
@@ -132,6 +151,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .dropdown-menu {
+    &__mb-menu {
+        display: none;
+    }
     &__selected {
         cursor: pointer;
         display: flex;
@@ -188,6 +210,19 @@ export default {
         }
         &:hover {
             background-color: $primary-20;
+        }
+    }
+}
+@media screen and (max-width: 768px){
+    .dropdown-menu {
+        &__mb-menu {
+            display: block;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 50px;
+            opacity: 0;
         }
     }
 }

@@ -22,7 +22,7 @@ Vue.prototype.formatCity = (item) => {
  * api回傳Picture format
  * @param   {Object}    item    單筆Picture回傳資料
  */ 
- Vue.prototype.formatImageList = (item) => {
+Vue.prototype.formatImageList = (item) => {
     let imageList = [];
     for (const key in item) {
         if(key.indexOf('PictureDescription') != -1) {
@@ -51,11 +51,26 @@ Vue.prototype.formatCity = (item) => {
  * 月份中文轉換
  * @param   {Object}    month    月份
  */
- Vue.prototype.formatMonth = (month) => {
+Vue.prototype.formatMonth = (month) => {
     let monthList = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"]
 
     return monthList[month];
- }
+}
+/** 
+ * 判斷是否為行動裝置
+ */
+ Vue.prototype.isMobile = () => {
+    let ua = navigator.userAgent.toString().toLowerCase();
+    console.error(ua)
+    if(ua.match(/iphone/i) ) {
+        return true
+    }else {
+        return false
+    }
+}
+
+
+
 
 
 
