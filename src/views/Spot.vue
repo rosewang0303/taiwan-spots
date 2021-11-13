@@ -21,7 +21,10 @@
                 <div class="spot__block-title col-12">熱門主題</div>
                 <ClassImgCard v-for="(item, index) in typeList" :key="index" type="food" :className="item.title" :img="item.img" @searchClass="searchClass"/>
             </div>
-            <SearchResultList v-else class="spot__search-result" :list="searchList" routeName="SpotDetail"/>
+            <div v-else class="spot__search-wrap">
+                <div v-if="loading" class="spot__loading">資料載入中...</div>
+                <SearchResultList v-else class="spot__search-result" :list="searchList" routeName="SpotDetail"/>
+            </div>
         </div>
     </div>
 </template>
@@ -88,6 +91,7 @@ export default {
             searchList: [],
             classBlockShow: true,
             menuTypeList: [],
+            loading: false,
         }
     },
     components: {
@@ -143,6 +147,8 @@ export default {
         },
         // 餐廳塞選
         callApiGetSpotCityList() {
+            this.loading = true;
+
             this.classBlockShow = false;
             let param = "";
             let city = "";
@@ -166,6 +172,7 @@ export default {
             apiGetSpotCityList(city, param)
             .then(res=> {
                 this.searchList = res;
+                this.loading = false;
             })
             .catch(err=> {
                 // 發生錯誤
@@ -210,8 +217,17 @@ export default {
         letter-spacing: 0.03em;
         color: $gray-900;
     }
+    &__search-wrap {
+        width: 100%;
+    }
     &__search-result {
         margin-top: 60px;
+    }
+    &__loading {
+        margin-top: 60px;
+        text-align: center;
+        font-weight: bold;
+        color: $primary;
     }
 }
 @media screen and (max-width: 768px){
@@ -247,6 +263,9 @@ export default {
             line-height: 35px;
         }
         &__search-result {
+            margin-top: 24px;
+        }
+        &__loading {
             margin-top: 24px;
         }
     }
