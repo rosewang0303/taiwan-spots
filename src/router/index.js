@@ -22,11 +22,10 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'Layout',
     component: Layout, // 引入layout
     children: [
       {
-        // 預設路徑
         path: '/',
         name: 'Index',
         component: Index,
@@ -73,13 +72,15 @@ const routes = [
         name: 'FoodDetail',
         component: FoodDetail,
       },
-      // 不符合router表預設轉址到首頁:放最後
-      { 
-        path: '/*', 
-        redirect: '/index'
-      }
     ],
   },
+  // 不符合router表預設轉址到首頁:放最後
+  { 
+    path: '/*', 
+    redirect: { 
+      name: 'Index' 
+    }
+  }
 ]
 
 const router = new VueRouter({

@@ -14,4 +14,5 @@ module.exports = {
         config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
       // }
     },
+    publicPath: '/taiwan-spots/',
   };
