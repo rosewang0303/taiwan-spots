@@ -264,11 +264,14 @@ export default {
         &__map-wrap {
             background: $gray-200;
             height: 185px;
-            border-radius: 12px;
+            margin: 0 -15px;
+            padding: 0 15px;
             width: unset;
         }
         &__map {
             height: 185px;
+            border-radius: 12px;
+            overflow: hidden;
         }
         &__nearby-wrap {
             background: $gray-200;
