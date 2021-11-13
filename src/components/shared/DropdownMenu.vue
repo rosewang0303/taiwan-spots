@@ -3,7 +3,7 @@
         <div class="dropdown-menu__selected" @click="menuOpenClick()">
             <div class="dropdown-menu__selected-title">{{selectedTitle}}</div>
             <img :class="{'open': menuOpen}" src="@/assets/icon/dropdown_arrow.svg"/>
-            <select class="dropdown-menu__mb-menu" v-model="syncValue" @change="selectChangeHandler($event)">
+            <select v-if="isMobile()" class="dropdown-menu__mb-menu" v-model="syncValue" @change="selectChangeHandler($event)">
                 <option :value="item.value" v-for="(item, index) in list" :key="index">{{item.title}}</option>
             </select>
         </div>
