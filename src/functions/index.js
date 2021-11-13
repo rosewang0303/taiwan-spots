@@ -61,8 +61,8 @@ Vue.prototype.formatMonth = (month) => {
  */
  Vue.prototype.isMobile = () => {
     let ua = navigator.userAgent.toString().toLowerCase();
-    console.error(ua)
-    if(ua.match(/iphone/i) ) {
+    
+    if(ua.match(/iphone/i) || ua.match(/ipad/i) || ua.match(/ipod/i) || ua.match(/android/i) || ua.match(/blackberry/i)  || ua.match(/webos/i)  || ua.match(/windows phone/i)) {
         return true
     }else {
         return false
