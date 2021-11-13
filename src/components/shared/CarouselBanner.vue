@@ -55,13 +55,13 @@ export default {
         },
     },
     beforeDestroy() {
-        window.removeEventListener('resize', this.resizeHandler);
+        // window.removeEventListener('resize', this.resizeHandler);
     },
     mounted() {
         // 初始計算撐滿畫面的banner寬度
         this.bannerWidth = document.getElementsByClassName('carousel-banner__banner-wrap')[0].offsetWidth;
         // 監聽resize事件
-        window.addEventListener('resize', this.resizeHandler);
+        // window.addEventListener('resize', this.resizeHandler);
     },
     watch: {
         bannerIndex: {
@@ -125,9 +125,9 @@ export default {
             }
         },
         // 監聽resize
-        resizeHandler() {
-           this.bannerWidth = document.getElementsByClassName('carousel-banner__banner-wrap')[0].offsetWidth;
-        },
+        // resizeHandler() {
+        //    this.bannerWidth = document.getElementsByClassName('carousel-banner__banner-wrap')[0].offsetWidth;
+        // },
     },
     computed: {
         countList() {
@@ -178,13 +178,11 @@ export default {
         display: block;
         background-color: $gray-500;
         width: 100%;
-        transform: scale(1.1);
-        // overflow: hidden;
-
-        // position: absolute;
-        // top: 50%;
-        // left: 50%;
-        // transform: translate(-50%, -50%);
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.1);
     }
     &__arrow-wrap {
         display: flex;
