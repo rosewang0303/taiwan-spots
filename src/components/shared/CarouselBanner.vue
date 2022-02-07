@@ -9,7 +9,7 @@
                 <div v-for="(item, index) in list" :key="index">
                     <router-link :to="{name: routeName, query: routeQuery(item), params: routeParams(item)}">
                         <div class="carousel-banner__banner-img-wrap" :style="'width:'+ bannerWidth +'px;'">
-                            <div class="carousel-banner__banner-title">{{ formatCity(item) + " | " + item.Name }}</div>
+                            <div class="carousel-banner__banner-title">{{ formatCity(item) + " | " + item.ScenicSpotName }}</div>
                             <img class="carousel-banner__img" :src="imageList[index].img" :alt="imageList[index].alt"/>
                         </div>
                     </router-link>

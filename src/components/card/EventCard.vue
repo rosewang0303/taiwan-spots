@@ -7,7 +7,7 @@
                 </div>
                 <div class="event-card__info-wrap">
                     <div class="event-card__date">{{ formatDate(item.StartTime) + " - " + formatDate(item.EndTime) }}</div>
-                    <div class="event-card__title">{{item.Name}}</div>
+                    <div class="event-card__title">{{item.ActivityName}}</div>
                     <div class="event-card__bottom-wrap">
                         <div class="event-card__city">
                             <img src="@/assets/icon/landmark_16_gray.svg"/>

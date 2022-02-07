@@ -6,7 +6,7 @@
                     <img :src="item.Picture.PictureUrl1"/>
                 </div>
                 <div class="spot-card__info-wrap">
-                    <div class="spot-card__title">{{item.Name}}</div>
+                    <div class="spot-card__title">{{item.ScenicSpotName}}</div>
                     <div class="spot-card__city">
                         <img src="@/assets/icon/landmark_16_gray.svg"/>
                         {{item.City?item.City:item.Address.substr(0, 3)}}

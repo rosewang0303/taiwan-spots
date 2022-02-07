@@ -6,7 +6,7 @@
                     <img :src="item.Picture.PictureUrl1"/>
                 </div>
                 <div class="search-card__info-wrap">
-                    <div class="search-card__title">{{item.Name}}</div>
+                    <div class="search-card__title">{{name}}</div>
                     <div class="search-card__city">
                         <img src="@/assets/icon/landmark_16_gray.svg"/>
                         {{ formatCity(item) }}
@@ -26,6 +26,19 @@ export default {
         routeName: {
             type: String,
             default: null,
+        },
+    },
+    computed: {
+        name() {
+            let showName = "";
+            if(this.routeName == "EventDetail") {
+                showName = this.item.ActivityName
+            }else if(this.routeName == "FoodDetail") {
+                showName = this.item.RestaurantName
+            }else {
+                showName = this.item.ScenicSpotName
+            }
+            return showName;
         },
     },
 }

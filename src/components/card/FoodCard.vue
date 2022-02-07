@@ -6,7 +6,7 @@
                     <img :src="item.Picture.PictureUrl1"/>
                 </div>
                 <div class="food-card__info-wrap">
-                    <div class="food-card__title">{{item.Name}}</div>
+                    <div class="food-card__title">{{item.RestaurantName}}</div>
                     <div class="food-card__city">
                         <img src="@/assets/icon/landmark_16_gray.svg"/>
                         {{ formatCity(item) }}

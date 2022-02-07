@@ -9,7 +9,7 @@
                     <CarouselBanner class="event-detail__banner" :imageList="imageList"/>
                 </div>
                 <div class="col-12">
-                    <div class="event-detail__name">{{eventDetail.Name}}</div>
+                    <div class="event-detail__name">{{eventDetail.ActivityName}}</div>
                 </div>
                 <div class="col-12" v-if="eventDetail.Class1">
                     <div v-if="eventDetail.Class1" class="event-detail__class"># {{eventDetail.Class1}}</div>
@@ -109,7 +109,7 @@ export default {
             .then(res=> {
                 this.eventDetail = res[0];
                 let city = this.formatCity(this.eventDetail);
-                let name = this.eventDetail.Name;
+                let name = this.eventDetail.ActivityName;
                 // 麵包屑
                 this.breadcrumbList = [
                     {

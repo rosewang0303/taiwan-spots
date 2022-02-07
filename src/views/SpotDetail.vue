@@ -9,7 +9,7 @@
                     <CarouselBanner class="spot-detail__banner" :imageList="imageList"/>
                 </div>
                 <div class="col-12">
-                    <div class="spot-detail__name">{{spotDetail.Name}}</div>
+                    <div class="spot-detail__name">{{spotDetail.ScenicSpotName}}</div>
                 </div>
                 <div class="col-12" v-if="spotDetail.Class1">
                     <div v-if="spotDetail.Class1" class="spot-detail__class"># {{spotDetail.Class1}}</div>
@@ -105,7 +105,7 @@ export default {
             .then(res=> {
                 this.spotDetail = res[0];
                 let city = this.formatCity(this.spotDetail);
-                let name = this.spotDetail.Name;
+                let name = this.spotDetail.ScenicSpotName;
                 // 麵包屑
                 this.breadcrumbList = [
                     {
