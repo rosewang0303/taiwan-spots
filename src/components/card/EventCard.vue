@@ -1,6 +1,6 @@
 <template>
     <div class="event-card col-lg-6 col-md-12 col-12">
-        <router-link :to="{name: 'EventDetail', params:{'id': item.ID} }">
+        <router-link :to="{name: 'EventDetail', params:{'id': item.ActivityID} }">
             <div class="event-card__wrap">
                 <div class="event-card__img-wrap">
                     <img :src="item.Picture.PictureUrl1"/>

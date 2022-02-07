@@ -1,6 +1,6 @@
 <template>
     <div class="spot-card col-lg-3 col-md-6 col-8">
-        <router-link :to="{name: 'SpotDetail', params:{'id': item.ID} }">
+        <router-link :to="{name: 'SpotDetail', params:{'id': item.ScenicSpotID} }">
             <div class="spot-card__wrap">
                 <div class="spot-card__img-wrap">
                     <img :src="item.Picture.PictureUrl1"/>

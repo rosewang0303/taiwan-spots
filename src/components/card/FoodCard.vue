@@ -1,6 +1,6 @@
 <template>
     <div class="food-card col-lg-3 col-md-6 col-8">
-        <router-link :to="{name: 'FoodDetail', params:{'id': item.ID} }">
+        <router-link :to="{name: 'FoodDetail', params:{'id': item.RestaurantID} }">
             <div class="food-card__wrap">
                 <div class="food-card__img-wrap">
                     <img :src="item.Picture.PictureUrl1"/>
