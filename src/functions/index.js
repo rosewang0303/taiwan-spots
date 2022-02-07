@@ -7,7 +7,7 @@ import Vue from 'vue'
  */
  Vue.prototype.formatDate = (time) => {
     let date = new Date(time);
-    let format = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate()
+    let format = date.getFullYear() + "/" + date.getMonth()+1 + "/" + date.getDate()
     return format;
 }
 /** 
