@@ -173,7 +173,7 @@ export default {
             })
         },
         callApiGetSpotList() {
-            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=ID desc&$top=4&$skip=5";
+            let param = "$filter=Picture/PictureUrl1 ne null&$top=4&$skip=5";
 
             apiGetSpotList(param)
             .then(res=> {
@@ -185,7 +185,7 @@ export default {
             })
         },
         callApiGetFoodList() {
-            let param = "$filter=Picture/PictureUrl1 ne null&$orderby=ID desc&$top=4&$skip=10";
+            let param = "$filter=Picture/PictureUrl1 ne null&$top=4&$skip=10";
 
             apiGetFoodList(param)
             .then(res=> {
