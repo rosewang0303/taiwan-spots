@@ -5,7 +5,7 @@
 
 使用Vue.js開發，UI元件儘可能的增加可用彈性，api資料的不齊全花了不少時間在過濾資料，串接TDX平台的v2和v3的圖資api，這也是我第一次嘗試申請使用google map的api服務，也挑戰不使用第三方套件自己實作輪播圖片和時間選擇器。
 
-Demo：[https://rosewang0303.github.io/taiwan-spots/](https://rosewang0303.github.io/taiwan-spots/)
+Demo：[https://taiwan-spots.netlify.app/](https://taiwan-spots.netlify.app/)
 
 ## 系統說明
 ```bash
