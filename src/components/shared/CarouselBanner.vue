@@ -114,13 +114,17 @@ export default {
         },
         // 前一個
         bannerPrevious() {
-            if(this.bannerIndex != 0) {
+            if(this.bannerIndex == 0 || this.countList.length <= 1) {
+                // 
+            }else {
                 this.bannerIndex--;
             }
         },
         // 後一個
         bannerNext() {
-            if(this.bannerIndex != this.list.length-1) {
+            if(this.bannerIndex == this.countList.length-1 || this.countList.length <= 1) {
+                // 
+            }else {
                 this.bannerIndex++;
             }
         },
