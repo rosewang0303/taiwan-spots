@@ -104,7 +104,7 @@ export default {
     },
     methods: {
         callApiGetEventList() {
-            let param = "$filter=ID eq '" + this.$route.params.id + "'";
+            let param = "$filter=ActivityID eq '" + this.$route.params.id + "'";
             apiGetEventList(param)
             .then(res=> {
                 this.eventDetail = res[0];

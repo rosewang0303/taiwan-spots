@@ -90,7 +90,7 @@ export default {
     },
     methods: {
         callApiGetFoodList() {
-            let param = "$filter=ID eq '" + this.$route.params.id + "'";
+            let param = "$filter=RestaurantID eq '" + this.$route.params.id + "'";
             apiGetFoodList(param)
             .then(res=> {
                 this.foodDetail = res[0];

@@ -100,7 +100,7 @@ export default {
     },
     methods: {
         callApiGetSpotList() {
-            let param = "$filter=ID eq '" + this.$route.params.id + "'";
+            let param = "$filter=ScenicSpotID eq '" + this.$route.params.id + "'";
             apiGetSpotList(param)
             .then(res=> {
                 this.spotDetail = res[0];
